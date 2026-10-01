@@ -1,0 +1,9 @@
+key,value
+bankName,ใส่ชื่อธนาคาร
+accountName,ใส่ชื่อบัญชี
+accountNumber,ใส่เลขบัญชี
+promptpay,ใส่เบอร์พร้อมเพย์
+kr_openRange,ใส่ช่วงเปิดรับ (เกาหลี)
+kr_shipDate,ใส่วันจัดส่ง (เกาหลี)
+jp_openRange,ใส่ช่วงเปิดรับ (ญี่ปุ่น)
+jp_shipDate,ใส่วันจัดส่ง (ญี่ปุ่น)

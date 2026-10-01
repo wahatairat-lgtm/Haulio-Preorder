@@ -27,3 +27,7 @@ dist-ssr
 *.sw?
 .vercel
 .github/workflows/deploy.yml
+
+# ข้อมูลต้นทุนจริง ไม่ขึ้น GitHub
+sheet-templates/Catelog.csv
+sheet-templates/price-report.csv
