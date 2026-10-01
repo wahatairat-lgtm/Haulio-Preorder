@@ -1,6 +1,7 @@
-const PRODUCTS_SHEET_ID = '1gNkZF3SrHnKZCp2ZG7f5y5EkUE4X-9CxSOnmC2w5KEg'
-const ORDERS_SHEET_ID = '1OOv8fDaG914x9xqafXLP6tmS3KImJfkesWdw4zMMiFM'
-const SETTINGS_SHEET_ID = '1rGmLR210jqpXeNYNyQgykOctPxLX_G-uZRpyTYdyqcU'
+const SHEET_ID = '1oe2Nj6b0-ylTgyPCEmLgP-95NAI8NA-J_1EiUU2ahEc'
+const PRODUCTS_SHEET = 'Products'
+const ORDERS_SHEET = 'Orders'
+const SETTINGS_SHEET = 'Settings'
 const SLIP_FOLDER_NAME = 'Haulio Preorder Slips'
 
 function doGet(e) {
@@ -34,8 +35,8 @@ function jsonResponse(obj) {
   )
 }
 
-function firstSheet(spreadsheetId) {
-  return SpreadsheetApp.openById(spreadsheetId).getSheets()[0]
+function sheetByName(name) {
+  return SpreadsheetApp.openById(SHEET_ID).getSheetByName(name)
 }
 
 function rowsAsObjects(sheet) {
@@ -49,7 +50,7 @@ function rowsAsObjects(sheet) {
 }
 
 function readProducts() {
-  const sheet = firstSheet(PRODUCTS_SHEET_ID)
+  const sheet = sheetByName(PRODUCTS_SHEET)
   return rowsAsObjects(sheet)
     .filter((p) => p.id)
     .map((p) => ({
@@ -71,7 +72,7 @@ function readProducts() {
 }
 
 function readSettings() {
-  const sheet = firstSheet(SETTINGS_SHEET_ID)
+  const sheet = sheetByName(SETTINGS_SHEET)
   const values = sheet.getDataRange().getValues()
   const map = {}
   values.slice(1).forEach((row) => {
@@ -93,7 +94,7 @@ function readSettings() {
 }
 
 function findOrder(orderId) {
-  const sheet = firstSheet(ORDERS_SHEET_ID)
+  const sheet = sheetByName(ORDERS_SHEET)
   const match = rowsAsObjects(sheet).find((o) => String(o.orderId) === orderId)
   if (!match) return null
 
@@ -115,7 +116,7 @@ function createOrder(body) {
   const orderId = 'HL' + Utilities.getUuid().slice(0, 8).toUpperCase()
   const slipUrl = saveSlipImage(body.slipBase64, body.slipFileName, orderId)
 
-  const sheet = firstSheet(ORDERS_SHEET_ID)
+  const sheet = sheetByName(ORDERS_SHEET)
   sheet.appendRow([
     orderId,
     new Date(),
