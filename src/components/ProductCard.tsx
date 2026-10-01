@@ -1,4 +1,5 @@
 import { baht } from '../lib/format'
+import { productImage } from '../lib/image'
 import type { Product } from '../types'
 import { cx, IconButton, ProductImage } from '../ui'
 
@@ -16,7 +17,7 @@ export default function ProductCard({
       <div className="relative">
         <button type="button" onClick={() => onOpen(product)} className="block w-full text-left" aria-label={product.name}>
           <ProductImage
-            src={product.imageUrl}
+            src={productImage(product)}
             alt={product.name}
             className={cx('aspect-4/5 w-full rounded-xl', !product.available && 'opacity-50 grayscale')}
           />

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { baht } from '../lib/format'
+import { productImage } from '../lib/image'
 import type { Product } from '../types'
 import { BottomSheet, Button, Chip, IconButton, ProductImage, QuantityStepper } from '../ui'
 
@@ -34,7 +35,7 @@ function SheetBody({
   return (
     <div className="px-4 pb-6 pt-2">
       <div className="relative">
-        <ProductImage src={product.imageUrl} alt={product.name} className="aspect-square w-full rounded-xl" />
+        <ProductImage src={productImage(product)} alt={product.name} className="aspect-square w-full rounded-xl" />
         <IconButton icon="close" label="ปิด" variant="tonal" className="absolute right-2 top-2" onClick={onClose} />
       </div>
 

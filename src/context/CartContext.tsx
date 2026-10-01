@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { productImage } from '../lib/image'
 import type { CartItem, Product } from '../types'
 
 const STORAGE_KEY = 'haulio-cart'
@@ -51,7 +52,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
           productId: product.id,
           name: product.name,
           price: product.price,
-          imageUrl: product.imageUrl,
+          imageUrl: productImage(product),
           qty: 1,
           variant,
         },
