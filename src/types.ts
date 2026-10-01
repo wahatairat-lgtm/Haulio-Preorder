@@ -8,6 +8,7 @@ export interface Product {
   imageUrl: string
   description?: string
   deadline?: string
+  variants?: string[]
   available: boolean
   createdAt: number
 }
@@ -18,6 +19,7 @@ export interface CartItem {
   price: number
   imageUrl: string
   qty: number
+  variant?: string
 }
 
 export type OrderStatus = 'pending' | 'paid' | 'rejected' | 'shipped' | 'done'

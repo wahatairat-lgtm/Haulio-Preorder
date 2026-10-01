@@ -51,9 +51,12 @@ export default function TrackOrderPage() {
           </div>
           <div className="divide-y divide-gray-100 rounded-xl border border-gray-100">
             {order.items.map((item) => (
-              <div key={item.productId} className="flex items-center gap-2 p-2 text-sm">
+              <div key={item.productId + (item.variant ?? '')} className="flex items-center gap-2 p-2 text-sm">
                 <img src={item.imageUrl} alt={item.name} className="h-10 w-10 rounded object-cover" />
-                <span className="flex-1 truncate">{item.name}</span>
+                <span className="flex-1 truncate">
+                  {item.name}
+                  {item.variant && ` (${item.variant})`}
+                </span>
                 <span className="text-gray-500">x{item.qty}</span>
               </div>
             ))}

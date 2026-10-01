@@ -24,16 +24,20 @@ export default function CartPage() {
 
       <main className="flex-1 space-y-2 px-4 pb-4">
         {items.map((item) => (
-          <div key={item.productId} className="flex items-center gap-3 rounded-xl border border-gray-100 p-3">
+          <div
+            key={item.productId + (item.variant ?? '')}
+            className="flex items-center gap-3 rounded-xl border border-gray-100 p-3"
+          >
             <img src={item.imageUrl} alt={item.name} className="h-16 w-16 flex-none rounded-lg object-cover bg-gray-100" />
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium text-gray-900">{item.name}</p>
+              {item.variant && <p className="truncate text-xs text-gray-400">รส: {item.variant}</p>}
               <p className="text-xs text-gray-500">฿{item.price.toLocaleString()}</p>
             </div>
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={() => setQty(item.productId, item.qty - 1)}
+                onClick={() => setQty(item.productId, item.qty - 1, item.variant)}
                 className="h-7 w-7 rounded-full border border-gray-200 text-gray-600"
               >
                 −
@@ -41,7 +45,7 @@ export default function CartPage() {
               <span className="w-5 text-center text-sm">{item.qty}</span>
               <button
                 type="button"
-                onClick={() => setQty(item.productId, item.qty + 1)}
+                onClick={() => setQty(item.productId, item.qty + 1, item.variant)}
                 className="h-7 w-7 rounded-full border border-gray-200 text-gray-600"
               >
                 +
@@ -49,7 +53,7 @@ export default function CartPage() {
             </div>
             <button
               type="button"
-              onClick={() => removeItem(item.productId)}
+              onClick={() => removeItem(item.productId, item.variant)}
               className="ml-1 text-xs text-gray-400"
             >
               ลบ

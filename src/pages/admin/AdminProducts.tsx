@@ -19,6 +19,7 @@ const EMPTY_FORM = {
   price: '',
   description: '',
   deadline: '',
+  variants: '',
 }
 
 export default function AdminProducts() {
@@ -44,12 +45,18 @@ export default function AdminProducts() {
       await uploadBytes(imageRef, image)
       const imageUrl = await getDownloadURL(imageRef)
 
+      const variants = form.variants
+        .split(',')
+        .map((v) => v.trim())
+        .filter(Boolean)
+
       await addDoc(collection(db, 'products'), {
         name: form.name,
         category: form.category,
         price: Number(form.price),
         description: form.description,
         deadline: form.deadline,
+        ...(variants.length > 0 && { variants }),
         imageUrl,
         available: true,
         createdAt: Date.now(),
@@ -124,6 +131,12 @@ export default function AdminProducts() {
             className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
           />
           <input
+            placeholder="ตัวเลือกรส คั่นด้วยจุลภาค เช่น ช็อกโกแลต, มัทฉะ, สตรอว์เบอร์รี"
+            value={form.variants}
+            onChange={(e) => setForm({ ...form, variants: e.target.value })}
+            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+          />
+          <input
             required
             type="file"
             accept="image/*"
@@ -149,6 +162,9 @@ export default function AdminProducts() {
                 {p.category === 'kr' ? '🇰🇷' : '🇯🇵'} {p.name}
               </p>
               <p className="text-xs text-gray-500">฿{p.price.toLocaleString()}</p>
+              {p.variants && p.variants.length > 0 && (
+                <p className="truncate text-[11px] text-gray-400">{p.variants.length} รส: {p.variants.join(', ')}</p>
+              )}
             </div>
             <button
               type="button"

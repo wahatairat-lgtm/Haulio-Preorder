@@ -5,9 +5,9 @@ const STORAGE_KEY = 'haulio-cart'
 
 interface CartContextValue {
   items: CartItem[]
-  addItem: (product: Product) => void
-  removeItem: (productId: string) => void
-  setQty: (productId: string, qty: number) => void
+  addItem: (product: Product, variant?: string) => void
+  removeItem: (productId: string, variant?: string) => void
+  setQty: (productId: string, qty: number, variant?: string) => void
   clear: () => void
   total: number
   count: number
@@ -24,6 +24,10 @@ function loadCart(): CartItem[] {
   }
 }
 
+function sameLine(item: CartItem, productId: string, variant?: string) {
+  return item.productId === productId && (item.variant ?? '') === (variant ?? '')
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>(loadCart)
 
@@ -35,11 +39,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [items])
 
-  function addItem(product: Product) {
+  function addItem(product: Product, variant?: string) {
     setItems((prev) => {
-      const existing = prev.find((i) => i.productId === product.id)
+      const existing = prev.find((i) => sameLine(i, product.id, variant))
       if (existing) {
-        return prev.map((i) => (i.productId === product.id ? { ...i, qty: i.qty + 1 } : i))
+        return prev.map((i) => (sameLine(i, product.id, variant) ? { ...i, qty: i.qty + 1 } : i))
       }
       return [
         ...prev,
@@ -49,21 +53,22 @@ export function CartProvider({ children }: { children: ReactNode }) {
           price: product.price,
           imageUrl: product.imageUrl,
           qty: 1,
+          variant,
         },
       ]
     })
   }
 
-  function removeItem(productId: string) {
-    setItems((prev) => prev.filter((i) => i.productId !== productId))
+  function removeItem(productId: string, variant?: string) {
+    setItems((prev) => prev.filter((i) => !sameLine(i, productId, variant)))
   }
 
-  function setQty(productId: string, qty: number) {
+  function setQty(productId: string, qty: number, variant?: string) {
     if (qty <= 0) {
-      removeItem(productId)
+      removeItem(productId, variant)
       return
     }
-    setItems((prev) => prev.map((i) => (i.productId === productId ? { ...i, qty } : i)))
+    setItems((prev) => prev.map((i) => (sameLine(i, productId, variant) ? { ...i, qty } : i)))
   }
 
   function clear() {

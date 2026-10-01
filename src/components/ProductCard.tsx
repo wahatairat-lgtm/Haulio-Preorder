@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Product } from '../types'
 
 export default function ProductCard({
@@ -5,8 +6,11 @@ export default function ProductCard({
   onAdd,
 }: {
   product: Product
-  onAdd: (product: Product) => void
+  onAdd: (product: Product, variant?: string) => void
 }) {
+  const hasVariants = Boolean(product.variants?.length)
+  const [variant, setVariant] = useState(hasVariants ? product.variants![0] : undefined)
+
   return (
     <div className="flex gap-3 rounded-xl border border-gray-100 bg-white p-3 shadow-sm">
       <img
@@ -14,7 +18,7 @@ export default function ProductCard({
         alt={product.name}
         className="h-20 w-20 flex-none rounded-lg object-cover bg-gray-100"
       />
-      <div className="flex min-w-0 flex-1 flex-col justify-between">
+      <div className="flex min-w-0 flex-1 flex-col justify-between gap-1.5">
         <div>
           <p className="truncate text-sm font-medium text-gray-900">{product.name}</p>
           {product.description && (
@@ -24,12 +28,27 @@ export default function ProductCard({
             <p className="mt-0.5 text-[11px] text-rose-500">ปิดรับออเดอร์ {product.deadline}</p>
           )}
         </div>
+
+        {hasVariants && (
+          <select
+            value={variant}
+            onChange={(e) => setVariant(e.target.value)}
+            className="w-full rounded-lg border border-gray-200 px-2 py-1 text-xs text-gray-700"
+          >
+            {product.variants!.map((v) => (
+              <option key={v} value={v}>
+                {v}
+              </option>
+            ))}
+          </select>
+        )}
+
         <div className="flex items-end justify-between">
           <span className="text-sm font-semibold text-gray-900">฿{product.price.toLocaleString()}</span>
           <button
             type="button"
             disabled={!product.available}
-            onClick={() => onAdd(product)}
+            onClick={() => onAdd(product, variant)}
             className="rounded-lg bg-rose-500 px-3 py-1.5 text-xs font-medium text-white active:scale-95 disabled:bg-gray-300"
           >
             {product.available ? '+ เพิ่ม' : 'หมด'}

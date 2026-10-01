@@ -59,8 +59,11 @@ export default function AdminOrders() {
           <p className="text-xs text-gray-500">{order.address}</p>
           <div className="my-2 space-y-1">
             {order.items.map((item) => (
-              <div key={item.productId} className="flex justify-between text-xs text-gray-600">
-                <span>{item.name} x{item.qty}</span>
+              <div key={item.productId + (item.variant ?? '')} className="flex justify-between text-xs text-gray-600">
+                <span>
+                  {item.name}
+                  {item.variant && ` (${item.variant})`} x{item.qty}
+                </span>
                 <span>฿{(item.price * item.qty).toLocaleString()}</span>
               </div>
             ))}
