@@ -4,7 +4,7 @@ import logo from '../assets/logo.jpg'
 import ProductCard from '../components/ProductCard'
 import ProductSheet from '../components/ProductSheet'
 import { useCart } from '../context/CartContext'
-import { fetchProducts, fetchSettings } from '../lib/api'
+import { cachedProducts, cachedSettings, fetchProducts, fetchSettings } from '../lib/api'
 import { productType, typesIn } from '../lib/categorize'
 import { searchProducts } from '../lib/search'
 import type { Category, Product, Schedule } from '../types'
@@ -16,13 +16,13 @@ const COUNTRIES = [
 ]
 
 export default function CatalogPage() {
-  const [products, setProducts] = useState<Product[]>([])
-  const [loading, setLoading] = useState(true)
+  const [products, setProducts] = useState<Product[]>(() => cachedProducts() ?? [])
+  const [loading, setLoading] = useState(() => !cachedProducts())
   const [failed, setFailed] = useState(false)
   const [tab, setTab] = useState<Category>('jp')
   const [type, setType] = useState('')
   const [query, setQuery] = useState('')
-  const [schedule, setSchedule] = useState<Schedule | null>(null)
+  const [schedule, setSchedule] = useState<Schedule | null>(() => cachedSettings()?.schedule ?? null)
   const [selected, setSelected] = useState<Product | null>(null)
   const [toast, setToast] = useState('')
   const { addItem } = useCart()
@@ -31,7 +31,7 @@ export default function CatalogPage() {
   useEffect(() => {
     fetchProducts()
       .then(setProducts)
-      .catch(() => setFailed(true))
+      .catch(() => setFailed(!cachedProducts()))
       .finally(() => setLoading(false))
     fetchSettings()
       .then((s) => setSchedule(s.schedule))
