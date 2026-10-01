@@ -6,11 +6,9 @@ import { cx, IconButton, ProductImage } from '../ui'
 export default function ProductCard({
   product,
   onOpen,
-  onQuickAdd,
 }: {
   product: Product
   onOpen: (product: Product) => void
-  onQuickAdd: (product: Product) => void
 }) {
   return (
     <article className="flex flex-col gap-2">
@@ -25,10 +23,10 @@ export default function ProductCard({
         {product.available ? (
           <IconButton
             icon="add"
-            label={`เพิ่ม ${product.name} ลงตะกร้า`}
+            label={`ดูรายละเอียดและเพิ่ม ${product.name}`}
             variant="filled"
             className="absolute bottom-2 right-2 shadow-e2"
-            onClick={() => onQuickAdd(product)}
+            onClick={() => onOpen(product)}
           />
         ) : (
           <span className="absolute bottom-2 right-2 rounded-full bg-surface-container-lowest px-3 py-1 text-xs font-medium text-on-surface-variant">

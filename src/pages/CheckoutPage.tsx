@@ -1,4 +1,3 @@
-import { QRCodeSVG } from 'qrcode.react'
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
@@ -6,6 +5,7 @@ import { fetchSettings, fileToBase64, submitOrder } from '../lib/api'
 import { baht } from '../lib/format'
 import { promptPayPayload } from '../lib/promptpay'
 import type { BankInfo } from '../types'
+import PromptPayQr from '../components/PromptPayQr'
 import { Button, Card, Icon, TextArea, TextField, TopAppBar } from '../ui'
 
 const DEFAULT_BANK: BankInfo = {
@@ -115,16 +115,7 @@ export default function CheckoutPage() {
           <p className="pt-2 text-xl font-bold">ยอดที่ต้องโอน {baht(total)}</p>
         </Card>
 
-        {qrPayload && (
-          <Card className="flex flex-col items-center gap-2 p-4">
-            <p className="text-sm font-medium text-on-surface">สแกนจ่ายผ่านแอปธนาคาร</p>
-            <div className="rounded-md bg-white p-3">
-              <QRCodeSVG value={qrPayload} size={200} level="M" />
-            </div>
-            <p className="text-xl font-bold text-primary">{baht(total)}</p>
-            <p className="text-center text-xs text-on-surface-variant">ยอดถูกใส่ใน QR แล้ว ตรวจชื่อผู้รับให้ตรงกับ {bank.accountName} ก่อนยืนยันโอน</p>
-          </Card>
-        )}
+        {qrPayload && <PromptPayQr payload={qrPayload} amount={total} accountName={bank.accountName} />}
 
         <TextField required label="ชื่อ-นามสกุล" value={name} onChange={(e) => setName(e.target.value)} />
         <TextField required type="tel" inputMode="tel" label="เบอร์โทรศัพท์" value={phone} onChange={(e) => setPhone(e.target.value)} />
