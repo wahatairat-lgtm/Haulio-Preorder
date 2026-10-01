@@ -57,6 +57,7 @@ function readProducts() {
       id: String(p.id),
       name: p.name,
       category: p.category,
+      brand: p.brand || '',
       price: Number(p.price),
       imageUrl: p.imageUrl,
       description: p.description || '',
