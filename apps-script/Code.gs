@@ -58,6 +58,7 @@ function readProducts() {
       name: p.name,
       category: p.category,
       brand: p.brand || '',
+      type: p.type || '',
       price: Number(p.price),
       imageUrl: p.imageUrl,
       description: p.description || '',

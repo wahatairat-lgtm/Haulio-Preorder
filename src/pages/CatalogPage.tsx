@@ -5,6 +5,8 @@ import ProductCard from '../components/ProductCard'
 import ProductSheet from '../components/ProductSheet'
 import { useCart } from '../context/CartContext'
 import { fetchProducts, fetchSettings } from '../lib/api'
+import { productType, typesIn } from '../lib/categorize'
+import { searchProducts } from '../lib/search'
 import type { Category, Product, Schedule } from '../types'
 import { Chip, Icon, SearchBar, SegmentedButton, Snackbar } from '../ui'
 
@@ -18,7 +20,7 @@ export default function CatalogPage() {
   const [loading, setLoading] = useState(true)
   const [failed, setFailed] = useState(false)
   const [tab, setTab] = useState<Category>('jp')
-  const [brand, setBrand] = useState('')
+  const [type, setType] = useState('')
   const [query, setQuery] = useState('')
   const [schedule, setSchedule] = useState<Schedule | null>(null)
   const [selected, setSelected] = useState<Product | null>(null)
@@ -37,17 +39,16 @@ export default function CatalogPage() {
   }, [])
 
   const inTab = useMemo(() => products.filter((p) => p.category === tab), [products, tab])
-  const brands = useMemo(() => [...new Set(inTab.map((p) => p.brand).filter(Boolean) as string[])], [inTab])
-  const visible = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    return inTab.filter(
-      (p) => (!brand || p.brand === brand) && (!q || `${p.name} ${p.brand ?? ''}`.toLowerCase().includes(q)),
-    )
-  }, [inTab, brand, query])
+  const types = useMemo(() => typesIn(inTab), [inTab])
+  // พิมพ์ค้นหา = ค้นทั้งแท็บ (ไม่ติดตัวกรองหมวด) / ไม่ค้น = กรองตาม chip
+  const visible = useMemo(
+    () => (query.trim() ? searchProducts(inTab, query) : inTab.filter((p) => !type || productType(p) === type)),
+    [inTab, type, query],
+  )
 
   function changeTab(next: Category) {
     setTab(next)
-    setBrand('')
+    setType('')
   }
 
   function add(product: Product, variant: string | undefined, qty: number) {
@@ -56,18 +57,13 @@ export default function CatalogPage() {
     setToast(`เพิ่ม ${product.name} ลงตะกร้าแล้ว`)
   }
 
-  function quickAdd(product: Product) {
-    if (product.variants?.length) setSelected(product)
-    else add(product, undefined, 1)
-  }
-
   const range = schedule?.[tab]
 
   return (
     <div className="flex flex-1 flex-col">
       <header className="flex flex-col gap-3 px-4 pb-2 pt-4">
         <img src={logo} alt="Haulio Pre-order" className="h-10 w-auto self-start" />
-        <SearchBar value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ค้นหาสินค้าหรือแบรนด์" aria-label="ค้นหาสินค้า" />
+        <SearchBar value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ค้นหา เช่น กันแดด, matcha, Elixir" aria-label="ค้นหาสินค้า" />
       </header>
 
       <section className="px-4 pt-2">
@@ -93,14 +89,14 @@ export default function CatalogPage() {
         <SegmentedButton options={COUNTRIES} value={tab} onChange={changeTab} />
       </div>
 
-      {brands.length > 0 && (
-        <div className="no-scrollbar -mx-0 flex gap-2 overflow-x-auto px-4 pt-3">
-          <Chip selected={!brand} onClick={() => setBrand('')}>
+      {types.length > 1 && !query.trim() && (
+        <div className="no-scrollbar flex gap-2 overflow-x-auto px-4 pt-3">
+          <Chip selected={!type} onClick={() => setType('')}>
             ทั้งหมด
           </Chip>
-          {brands.map((b) => (
-            <Chip key={b} selected={brand === b} onClick={() => setBrand(b)}>
-              {b}
+          {types.map((t) => (
+            <Chip key={t} selected={type === t} onClick={() => setType(t)}>
+              {t}
             </Chip>
           ))}
         </div>
@@ -131,7 +127,7 @@ export default function CatalogPage() {
         )}
         <div className="grid grid-cols-2 gap-x-3 gap-y-5">
           {visible.map((p) => (
-            <ProductCard key={p.id} product={p} onOpen={setSelected} onQuickAdd={quickAdd} />
+            <ProductCard key={p.id} product={p} onOpen={setSelected} />
           ))}
         </div>
       </main>
