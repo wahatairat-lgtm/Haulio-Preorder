@@ -10,7 +10,6 @@ export interface Product {
   deadline?: string
   variants?: string[]
   available: boolean
-  createdAt: number
 }
 
 export interface CartItem {
@@ -34,8 +33,7 @@ export interface Order {
   note?: string
   slipUrl: string
   status: OrderStatus
-  createdAt: number
-  updatedAt: number
+  createdAt: string
 }
 
 export interface BankInfo {

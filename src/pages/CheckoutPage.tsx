@@ -1,9 +1,7 @@
-import { addDoc, collection, doc, getDoc, serverTimestamp } from 'firebase/firestore'
 import { useEffect, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import { db } from '../firebase'
-import { uploadImage } from '../lib/upload'
+import { fetchSettings, fileToBase64, submitOrder } from '../lib/api'
 import type { BankInfo } from '../types'
 
 const DEFAULT_BANK: BankInfo = {
@@ -26,9 +24,9 @@ export default function CheckoutPage() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    getDoc(doc(db, 'settings', 'bank')).then((snap) => {
-      if (snap.exists()) setBank(snap.data() as BankInfo)
-    })
+    fetchSettings()
+      .then((s) => setBank(s.bank))
+      .catch(() => {})
   }, [])
 
   function handleFile(file: File | null) {
@@ -45,24 +43,21 @@ export default function CheckoutPage() {
     }
     setSubmitting(true)
     try {
-      const slipUrl = await uploadImage(slip)
+      const slipBase64 = await fileToBase64(slip)
 
-      const orderDoc = await addDoc(collection(db, 'orders'), {
+      const orderId = await submitOrder({
         items,
         total,
         customerName: name,
         customerPhone: phone,
         address,
         note,
-        slipUrl,
-        status: 'pending',
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-        createdAtServer: serverTimestamp(),
+        slipBase64,
+        slipFileName: slip.name,
       })
 
       clear()
-      navigate(`/order/${orderDoc.id}`, { replace: true })
+      navigate(`/order/${orderId}`, { replace: true })
     } catch {
       setError('ส่งคำสั่งซื้อไม่สำเร็จ ลองใหม่อีกครั้ง')
     } finally {

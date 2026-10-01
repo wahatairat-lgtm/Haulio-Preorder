@@ -1,8 +1,7 @@
-import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState, type FormEvent } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import StatusBadge from '../components/StatusBadge'
-import { db } from '../firebase'
+import { fetchOrder } from '../lib/api'
 import type { Order } from '../types'
 
 export default function TrackOrderPage() {
@@ -13,8 +12,7 @@ export default function TrackOrderPage() {
   async function lookup(id: string) {
     if (!id.trim()) return
     setOrder(undefined)
-    const snap = await getDoc(doc(db, 'orders', id.trim()))
-    setOrder(snap.exists() ? ({ id: snap.id, ...snap.data() } as Order) : null)
+    setOrder(await fetchOrder(id.trim()))
   }
 
   useEffect(() => {

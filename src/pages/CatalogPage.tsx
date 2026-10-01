@@ -1,9 +1,8 @@
-import { collection, doc, getDoc, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import logo from '../assets/logo.jpg'
 import ProductCard from '../components/ProductCard'
 import { useCart } from '../context/CartContext'
-import { db } from '../firebase'
+import { fetchProducts, fetchSettings } from '../lib/api'
 import type { Category, Product, Schedule } from '../types'
 
 export default function CatalogPage() {
@@ -14,17 +13,12 @@ export default function CatalogPage() {
   const { addItem } = useCart()
 
   useEffect(() => {
-    const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'))
-    return onSnapshot(q, (snap) => {
-      setProducts(snap.docs.map((d) => ({ id: d.id, ...d.data() }) as Product))
-      setLoading(false)
-    })
-  }, [])
-
-  useEffect(() => {
-    getDoc(doc(db, 'settings', 'schedule')).then((snap) => {
-      if (snap.exists()) setSchedule(snap.data() as Schedule)
-    })
+    fetchProducts()
+      .then(setProducts)
+      .finally(() => setLoading(false))
+    fetchSettings()
+      .then((s) => setSchedule(s.schedule))
+      .catch(() => {})
   }, [])
 
   const filtered = products.filter((p) => p.category === tab)
