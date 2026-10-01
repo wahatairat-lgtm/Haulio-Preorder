@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import { fetchSettings, fileToBase64, submitOrder } from '../lib/api'
+import { cachedSettings, compressImage, fetchSettings, fileToBase64, submitOrder } from '../lib/api'
 import { baht } from '../lib/format'
 import { promptPayPayload } from '../lib/promptpay'
 import type { BankInfo } from '../types'
@@ -17,7 +17,7 @@ const DEFAULT_BANK: BankInfo = {
 export default function CheckoutPage() {
   const { items, total, clear } = useCart()
   const navigate = useNavigate()
-  const [bank, setBank] = useState<BankInfo>(DEFAULT_BANK)
+  const [bank, setBank] = useState<BankInfo>(() => cachedSettings()?.bank ?? DEFAULT_BANK)
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [lineId, setLineId] = useState('')
@@ -26,6 +26,7 @@ export default function CheckoutPage() {
   const [slip, setSlip] = useState<File | null>(null)
   const [preview, setPreview] = useState<string>('')
   const [submitting, setSubmitting] = useState(false)
+  const [progress, setProgress] = useState('')
   const [error, setError] = useState('')
   const [copied, setCopied] = useState(false)
   const qrPayload = useMemo(() => (bank.promptpay ? promptPayPayload(bank.promptpay, total) : null), [bank.promptpay, total])
@@ -54,13 +55,23 @@ export default function CheckoutPage() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setError('')
+    if (![name, phone, lineId, address].every((v) => v.trim())) {
+      setError('กรุณากรอกข้อมูลให้ครบทุกช่อง')
+      return
+    }
+    if (phone.replace(/\D/g, '').length < 9) {
+      setError('เบอร์โทรศัพท์ไม่ถูกต้อง')
+      return
+    }
     if (!slip) {
       setError('กรุณาแนบรูปสลิปโอนเงิน')
       return
     }
     setSubmitting(true)
     try {
-      const slipBase64 = await fileToBase64(slip)
+      setProgress('กำลังเตรียมรูปสลิป...')
+      const slipBase64 = await fileToBase64(await compressImage(slip))
+      setProgress('กำลังส่งคำสั่งซื้อ...')
 
       const orderId = await submitOrder({
         items,
@@ -71,7 +82,7 @@ export default function CheckoutPage() {
         address,
         note,
         slipBase64,
-        slipFileName: slip.name,
+        slipFileName: slip.name.replace(/\.[^.]+$/, '') + '.jpg',
       })
 
       clear()
@@ -80,6 +91,7 @@ export default function CheckoutPage() {
       setError('ส่งคำสั่งซื้อไม่สำเร็จ ลองใหม่อีกครั้ง')
     } finally {
       setSubmitting(false)
+      setProgress('')
     }
   }
 
@@ -117,11 +129,11 @@ export default function CheckoutPage() {
 
         {qrPayload && <PromptPayQr payload={qrPayload} amount={total} accountName={bank.accountName} />}
 
-        <TextField required label="ชื่อ-นามสกุล" value={name} onChange={(e) => setName(e.target.value)} />
-        <TextField required type="tel" inputMode="tel" label="เบอร์โทรศัพท์" value={phone} onChange={(e) => setPhone(e.target.value)} />
+        <TextField required autoComplete="name" label="ชื่อ-นามสกุล" value={name} onChange={(e) => setName(e.target.value)} />
+        <TextField required type="tel" inputMode="tel" autoComplete="tel" label="เบอร์โทรศัพท์" value={phone} onChange={(e) => setPhone(e.target.value)} />
         <TextField required label="LINE ID" supporting="ใช้ติดต่อเรื่องออเดอร์และการจัดส่ง" autoCapitalize="none" autoCorrect="off" value={lineId} onChange={(e) => setLineId(e.target.value)} />
         <TextArea required label="ที่อยู่จัดส่ง" value={address} onChange={(e) => setAddress(e.target.value)} />
-        <TextField label="หมายเหตุ (ถ้ามี)" value={note} onChange={(e) => setNote(e.target.value)} />
+        <TextField label="หมายเหตุ (ไม่บังคับ)" value={note} onChange={(e) => setNote(e.target.value)} />
 
         <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-outline p-5 text-sm text-on-surface-variant active:bg-on-surface/5">
           {preview ? (
@@ -129,7 +141,7 @@ export default function CheckoutPage() {
           ) : (
             <>
               <Icon name="upload" size={28} className="text-primary" />
-              <span>แตะเพื่อแนบรูปสลิปโอนเงิน</span>
+              <span>แตะเพื่อแนบรูปสลิปโอนเงิน *</span>
             </>
           )}
           <input required type="file" accept="image/*" className="sr-only" onChange={(e) => handleFile(e.target.files?.[0] ?? null)} />
@@ -138,7 +150,7 @@ export default function CheckoutPage() {
         {error && <p className="text-sm text-error">{error}</p>}
 
         <Button type="submit" full disabled={submitting} className="mt-auto">
-          {submitting ? 'กำลังส่งคำสั่งซื้อ...' : 'ยืนยันการสั่งซื้อ'}
+          {submitting ? progress || 'กำลังส่งคำสั่งซื้อ...' : 'ยืนยันการสั่งซื้อ'}
         </Button>
       </form>
     </div>

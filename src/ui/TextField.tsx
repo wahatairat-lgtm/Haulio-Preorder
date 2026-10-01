@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes, TextareaHTMLAttributes } from 'react'
+import { useId, type FormEvent, type InputHTMLAttributes, type TextareaHTMLAttributes } from 'react'
 import { cx } from './cx'
 
 const BASE =
@@ -10,13 +10,24 @@ const LABEL =
 
 type Common = { label: string; supporting?: string }
 
+/** ข้อความเตือนช่องที่ยังไม่กรอกเป็นภาษาไทย (เบราว์เซอร์ใช้ภาษาเครื่อง) */
+const requiredMessage = {
+  onInvalid: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    e.currentTarget.setCustomValidity(e.currentTarget.validity.valueMissing ? 'กรุณากรอกช่องนี้' : 'รูปแบบไม่ถูกต้อง'),
+  onInput: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => e.currentTarget.setCustomValidity(''),
+}
+
 /** Outlined text field (M3) พร้อม floating label */
 export function TextField({ label, supporting, className, ...rest }: Common & InputHTMLAttributes<HTMLInputElement>) {
+  const id = useId()
   return (
     <div className={className}>
       <div className="relative flex items-center pt-2">
-        <input placeholder=" " className={cx(BASE, 'h-14 py-0')} {...rest} />
-        <label className={cx(LABEL, 'top-[1.65rem] text-base')}>{label}</label>
+        <input id={id} placeholder=" " className={cx(BASE, 'h-14 py-0')} {...requiredMessage} {...rest} />
+        <label htmlFor={id} className={cx(LABEL, 'top-[1.65rem] text-base')}>
+          {label}
+          {rest.required && <span className="text-error"> *</span>}
+        </label>
       </div>
       {supporting && <p className="mt-1 px-4 text-xs text-on-surface-variant">{supporting}</p>}
     </div>
@@ -24,11 +35,15 @@ export function TextField({ label, supporting, className, ...rest }: Common & In
 }
 
 export function TextArea({ label, supporting, className, ...rest }: Common & TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  const id = useId()
   return (
     <div className={className}>
       <div className="relative flex items-start pt-2">
-        <textarea placeholder=" " rows={3} className={cx(BASE, 'resize-none py-4')} {...rest} />
-        <label className={cx(LABEL, 'top-[1.65rem] text-base')}>{label}</label>
+        <textarea id={id} placeholder=" " rows={3} className={cx(BASE, 'resize-none py-4')} {...requiredMessage} {...rest} />
+        <label htmlFor={id} className={cx(LABEL, 'top-[1.65rem] text-base')}>
+          {label}
+          {rest.required && <span className="text-error"> *</span>}
+        </label>
       </div>
       {supporting && <p className="mt-1 px-4 text-xs text-on-surface-variant">{supporting}</p>}
     </div>
