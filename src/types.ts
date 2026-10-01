@@ -42,3 +42,10 @@ export interface BankInfo {
   accountNumber: string
   promptpay?: string
 }
+
+export interface CategorySchedule {
+  openRange: string
+  shipDate: string
+}
+
+export type Schedule = Record<Category, CategorySchedule>

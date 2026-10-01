@@ -1,14 +1,15 @@
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { collection, doc, getDoc, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import ProductCard from '../components/ProductCard'
 import { useCart } from '../context/CartContext'
 import { db } from '../firebase'
-import type { Category, Product } from '../types'
+import type { Category, Product, Schedule } from '../types'
 
 export default function CatalogPage() {
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
   const [tab, setTab] = useState<Category>('kr')
+  const [schedule, setSchedule] = useState<Schedule | null>(null)
   const { addItem } = useCart()
 
   useEffect(() => {
@@ -16,6 +17,12 @@ export default function CatalogPage() {
     return onSnapshot(q, (snap) => {
       setProducts(snap.docs.map((d) => ({ id: d.id, ...d.data() }) as Product))
       setLoading(false)
+    })
+  }, [])
+
+  useEffect(() => {
+    getDoc(doc(db, 'settings', 'schedule')).then((snap) => {
+      if (snap.exists()) setSchedule(snap.data() as Schedule)
     })
   }, [])
 
@@ -41,6 +48,12 @@ export default function CatalogPage() {
             🇯🇵 ญี่ปุ่น
           </button>
         </div>
+
+        {schedule && (
+          <p className="mt-2 text-xs text-gray-500">
+            เปิดรับออเดอร์ {schedule[tab].openRange} · จัดส่ง {schedule[tab].shipDate}
+          </p>
+        )}
       </header>
 
       <main className="flex-1 space-y-2 px-4 pb-4">
