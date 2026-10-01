@@ -1,9 +1,9 @@
 import { addDoc, collection, doc, getDoc, serverTimestamp } from 'firebase/firestore'
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { useEffect, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import { db, storage } from '../firebase'
+import { db } from '../firebase'
+import { uploadImage } from '../lib/upload'
 import type { BankInfo } from '../types'
 
 const DEFAULT_BANK: BankInfo = {
@@ -45,9 +45,7 @@ export default function CheckoutPage() {
     }
     setSubmitting(true)
     try {
-      const slipRef = ref(storage, `slips/${Date.now()}_${slip.name}`)
-      await uploadBytes(slipRef, slip)
-      const slipUrl = await getDownloadURL(slipRef)
+      const slipUrl = await uploadImage(slip)
 
       const orderDoc = await addDoc(collection(db, 'orders'), {
         items,

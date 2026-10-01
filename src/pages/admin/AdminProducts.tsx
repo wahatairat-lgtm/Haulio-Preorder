@@ -8,9 +8,9 @@ import {
   query,
   updateDoc,
 } from 'firebase/firestore'
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { useEffect, useState, type FormEvent } from 'react'
-import { db, storage } from '../../firebase'
+import { db } from '../../firebase'
+import { uploadImage } from '../../lib/upload'
 import type { Category, Product } from '../../types'
 
 const EMPTY_FORM = {
@@ -41,9 +41,7 @@ export default function AdminProducts() {
     if (!image) return
     setSubmitting(true)
     try {
-      const imageRef = ref(storage, `products/${Date.now()}_${image.name}`)
-      await uploadBytes(imageRef, image)
-      const imageUrl = await getDownloadURL(imageRef)
+      const imageUrl = await uploadImage(image)
 
       const variants = form.variants
         .split(',')
