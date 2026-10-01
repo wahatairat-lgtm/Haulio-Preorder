@@ -1,5 +1,6 @@
 import { collection, doc, getDoc, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
+import logo from '../assets/logo.jpg'
 import ProductCard from '../components/ProductCard'
 import { useCart } from '../context/CartContext'
 import { db } from '../firebase'
@@ -31,7 +32,7 @@ export default function CatalogPage() {
   return (
     <div className="flex flex-1 flex-col">
       <header className="sticky top-0 z-10 bg-white px-4 pb-2 pt-4">
-        <h1 className="text-lg font-semibold text-gray-900">พรีออเดอร์เกาหลี · ญี่ปุ่น</h1>
+        <img src={logo} alt="Haulio" className="h-10 w-auto" />
         <div className="mt-3 flex rounded-xl bg-gray-100 p-1 text-sm font-medium">
           <button
             type="button"
