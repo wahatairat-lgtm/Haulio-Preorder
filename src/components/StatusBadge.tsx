@@ -1,18 +1,14 @@
 import type { OrderStatus } from '../types'
 
 const LABELS: Record<OrderStatus, { text: string; cls: string }> = {
-  pending: { text: 'รอตรวจสลิป', cls: 'bg-amber-100 text-amber-700' },
-  paid: { text: 'ยืนยันแล้ว', cls: 'bg-emerald-100 text-emerald-700' },
-  rejected: { text: 'สลิปไม่ถูกต้อง', cls: 'bg-red-100 text-red-700' },
-  shipped: { text: 'จัดส่งแล้ว', cls: 'bg-blue-100 text-blue-700' },
-  done: { text: 'สำเร็จ', cls: 'bg-gray-200 text-gray-700' },
+  pending: { text: 'รอตรวจสลิป', cls: 'bg-tertiary-container text-on-tertiary-container' },
+  paid: { text: 'ยืนยันการชำระเงินแล้ว', cls: 'bg-secondary-container text-on-secondary-container' },
+  rejected: { text: 'สลิปไม่ถูกต้อง', cls: 'bg-error-container text-on-error-container' },
+  shipped: { text: 'จัดส่งแล้ว', cls: 'bg-primary-container text-on-primary-container' },
+  done: { text: 'สำเร็จ', cls: 'bg-surface-container-highest text-on-surface' },
 }
 
 export default function StatusBadge({ status }: { status: OrderStatus }) {
   const { text, cls } = LABELS[status]
-  return (
-    <span className={`inline-block rounded-full px-2.5 py-1 text-xs font-medium ${cls}`}>
-      {text}
-    </span>
-  )
+  return <span className={`inline-flex h-8 items-center rounded-full px-3 text-sm font-medium ${cls}`}>{text}</span>
 }

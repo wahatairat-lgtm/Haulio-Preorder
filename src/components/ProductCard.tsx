@@ -1,60 +1,45 @@
-import { useState } from 'react'
+import { baht } from '../lib/format'
 import type { Product } from '../types'
+import { cx, IconButton, ProductImage } from '../ui'
 
 export default function ProductCard({
   product,
-  onAdd,
+  onOpen,
+  onQuickAdd,
 }: {
   product: Product
-  onAdd: (product: Product, variant?: string) => void
+  onOpen: (product: Product) => void
+  onQuickAdd: (product: Product) => void
 }) {
-  const hasVariants = Boolean(product.variants?.length)
-  const [variant, setVariant] = useState(hasVariants ? product.variants![0] : undefined)
-
   return (
-    <div className="flex gap-3 rounded-xl border border-gray-100 bg-white p-3 shadow-sm">
-      <img
-        src={product.imageUrl}
-        alt={product.name}
-        className="h-20 w-20 flex-none rounded-lg object-cover bg-gray-100"
-      />
-      <div className="flex min-w-0 flex-1 flex-col justify-between gap-1.5">
-        <div>
-          <p className="truncate text-sm font-medium text-gray-900">{product.name}</p>
-          {product.description && (
-            <p className="line-clamp-2 text-xs text-gray-500">{product.description}</p>
-          )}
-          {product.deadline && (
-            <p className="mt-0.5 text-[11px] text-rose-500">ปิดรับออเดอร์ {product.deadline}</p>
-          )}
-        </div>
-
-        {hasVariants && (
-          <select
-            value={variant}
-            onChange={(e) => setVariant(e.target.value)}
-            className="w-full rounded-lg border border-gray-200 px-2 py-1 text-xs text-gray-700"
-          >
-            {product.variants!.map((v) => (
-              <option key={v} value={v}>
-                {v}
-              </option>
-            ))}
-          </select>
+    <article className="flex flex-col gap-2">
+      <div className="relative">
+        <button type="button" onClick={() => onOpen(product)} className="block w-full text-left" aria-label={product.name}>
+          <ProductImage
+            src={product.imageUrl}
+            alt={product.name}
+            className={cx('aspect-4/5 w-full rounded-xl', !product.available && 'opacity-50 grayscale')}
+          />
+        </button>
+        {product.available ? (
+          <IconButton
+            icon="add"
+            label={`เพิ่ม ${product.name} ลงตะกร้า`}
+            variant="filled"
+            className="absolute bottom-2 right-2 shadow-e2"
+            onClick={() => onQuickAdd(product)}
+          />
+        ) : (
+          <span className="absolute bottom-2 right-2 rounded-full bg-surface-container-lowest px-3 py-1 text-xs font-medium text-on-surface-variant">
+            หมด
+          </span>
         )}
-
-        <div className="flex items-end justify-between">
-          <span className="text-sm font-semibold text-gray-900">฿{product.price.toLocaleString()}</span>
-          <button
-            type="button"
-            disabled={!product.available}
-            onClick={() => onAdd(product, variant)}
-            className="rounded-lg bg-rose-500 px-3 py-1.5 text-xs font-medium text-white active:scale-95 disabled:bg-gray-300"
-          >
-            {product.available ? '+ เพิ่ม' : 'หมด'}
-          </button>
-        </div>
       </div>
-    </div>
+      <button type="button" onClick={() => onOpen(product)} className="px-1 text-left">
+        <p className="line-clamp-2 text-sm font-medium leading-snug text-on-surface">{product.name}</p>
+        {product.brand && <p className="mt-0.5 truncate text-xs text-on-surface-variant">{product.brand}</p>}
+        <p className="mt-1 text-base font-semibold text-primary">{baht(product.price)}</p>
+      </button>
+    </article>
   )
 }

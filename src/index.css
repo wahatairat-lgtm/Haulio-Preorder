@@ -1,32 +1,30 @@
 @import "tailwindcss";
-
-@theme {
-  --color-rose-500: #550017;
-}
+@import "./ui/tokens.css";
 
 :root {
   color-scheme: light;
 }
 
 html,
-body,
-#root {
+body {
   height: 100%;
 }
 
 body {
   margin: 0;
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
-  background: #f7f7f9;
+  font-family: var(--font-sans);
+  color: var(--color-on-surface);
+  background: var(--color-surface-container);
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #root {
   max-width: 480px;
   margin: 0 auto;
-  background: #fff;
+  background: var(--color-surface-container-lowest);
   min-height: 100svh;
-  box-shadow: 0 0 24px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
 }
@@ -36,4 +34,15 @@ textarea,
 select,
 button {
   font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

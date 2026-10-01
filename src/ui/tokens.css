@@ -1,0 +1,44 @@
+/* สร้างโดย scripts/gen-tokens.mjs จากสี #550017 — อย่าแก้ตรงนี้ */
+@theme static {
+  --color-primary: #550017;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #ffdadb;
+  --color-on-primary-container: #72333b;
+  --color-secondary: #765659;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #ffdadb;
+  --color-on-secondary-container: #5c3f41;
+  --color-tertiary: #775930;
+  --color-tertiary-container: #ffddb5;
+  --color-on-tertiary-container: #5d411b;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-surface: #fff8f7;
+  --color-on-surface: #22191a;
+  --color-on-surface-variant: #524344;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #fff0f0;
+  --color-surface-container: #fceaea;
+  --color-surface-container-high: #f6e4e4;
+  --color-surface-container-highest: #f0dedf;
+  --color-outline: #857374;
+  --color-outline-variant: #d7c1c2;
+  --color-inverse-primary: #ffb2b9;
+  --color-scrim: #000000;
+
+  /* M3 shape scale */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 28px;
+
+  /* M3 elevation */
+  --shadow-e1: 0 1px 2px rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+  --shadow-e2: 0 1px 2px rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+  --shadow-e3: 0 4px 8px 3px rgb(0 0 0 / 0.15), 0 1px 3px rgb(0 0 0 / 0.3);
+
+  --font-sans: 'Poppins', 'Noto Sans Thai', system-ui, sans-serif;
+}

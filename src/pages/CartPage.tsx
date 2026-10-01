@@ -1,79 +1,75 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
+import { baht } from '../lib/format'
+import { Button, Card, Icon, IconButton, ProductImage, QuantityStepper, TopAppBar } from '../ui'
 
 export default function CartPage() {
-  const { items, setQty, removeItem, total } = useCart()
+  const { items, setQty, removeItem, total, count } = useCart()
   const navigate = useNavigate()
 
   if (items.length === 0) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-3 px-4 text-center">
-        <p className="text-sm text-gray-400">ตะกร้ายังว่างอยู่</p>
-        <Link to="/" className="rounded-lg bg-rose-500 px-4 py-2 text-sm font-medium text-white">
-          ไปเลือกสินค้า
-        </Link>
+      <div className="flex flex-1 flex-col">
+        <TopAppBar title="ตะกร้าของฉัน" />
+        <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
+          <span className="flex h-20 w-20 items-center justify-center rounded-full bg-primary-container text-on-primary-container">
+            <Icon name="bag" size={36} />
+          </span>
+          <p className="text-sm text-on-surface-variant">ตะกร้ายังว่างอยู่</p>
+          <Link to="/">
+            <Button>ไปเลือกสินค้า</Button>
+          </Link>
+        </div>
       </div>
     )
   }
 
   return (
     <div className="flex flex-1 flex-col">
-      <header className="px-4 pb-2 pt-4">
-        <h1 className="text-lg font-semibold text-gray-900">ตะกร้าของฉัน</h1>
-      </header>
+      <TopAppBar title="ตะกร้าของฉัน" />
 
-      <main className="flex-1 space-y-2 px-4 pb-4">
+      <main className="flex-1 space-y-3 px-4 pb-4 pt-2">
         {items.map((item) => (
-          <div
-            key={item.productId + (item.variant ?? '')}
-            className="flex items-center gap-3 rounded-xl border border-gray-100 p-3"
-          >
-            <img src={item.imageUrl} alt={item.name} className="h-16 w-16 flex-none rounded-lg object-cover bg-gray-100" />
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium text-gray-900">{item.name}</p>
-              {item.variant && <p className="truncate text-xs text-gray-400">รส: {item.variant}</p>}
-              <p className="text-xs text-gray-500">฿{item.price.toLocaleString()}</p>
+          <Card key={item.productId + (item.variant ?? '')} className="flex gap-3 p-3">
+            <ProductImage src={item.imageUrl} alt={item.name} className="h-24 w-20 flex-none rounded-md" />
+            <div className="flex min-w-0 flex-1 flex-col justify-between">
+              <div className="flex items-start gap-1">
+                <div className="min-w-0 flex-1">
+                  <p className="line-clamp-2 text-sm font-medium leading-snug text-on-surface">{item.name}</p>
+                  {item.variant && <p className="mt-0.5 truncate text-xs text-on-surface-variant">ตัวเลือก: {item.variant}</p>}
+                </div>
+                <IconButton
+                  size="sm"
+                  icon="delete"
+                  label={`ลบ ${item.name}`}
+                  className="text-error"
+                  onClick={() => removeItem(item.productId, item.variant)}
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-base font-semibold text-primary">{baht(item.price)}</span>
+                <QuantityStepper value={item.qty} onChange={(n) => setQty(item.productId, n, item.variant)} />
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setQty(item.productId, item.qty - 1, item.variant)}
-                className="h-7 w-7 rounded-full border border-gray-200 text-gray-600"
-              >
-                −
-              </button>
-              <span className="w-5 text-center text-sm">{item.qty}</span>
-              <button
-                type="button"
-                onClick={() => setQty(item.productId, item.qty + 1, item.variant)}
-                className="h-7 w-7 rounded-full border border-gray-200 text-gray-600"
-              >
-                +
-              </button>
-            </div>
-            <button
-              type="button"
-              onClick={() => removeItem(item.productId, item.variant)}
-              className="ml-1 text-xs text-gray-400"
-            >
-              ลบ
-            </button>
-          </div>
+          </Card>
         ))}
+
+        <Card variant="filled" className="space-y-2 p-4 text-sm">
+          <div className="flex justify-between text-on-surface-variant">
+            <span>จำนวนสินค้า</span>
+            <span>{count} ชิ้น</span>
+          </div>
+          <div className="flex items-baseline justify-between border-t border-outline-variant pt-2">
+            <span className="font-medium text-on-surface">ยอดรวม</span>
+            <span className="text-xl font-bold text-primary">{baht(total)}</span>
+          </div>
+        </Card>
       </main>
 
-      <footer className="sticky bottom-0 border-t border-gray-100 bg-white p-4">
-        <div className="mb-3 flex items-center justify-between text-sm">
-          <span className="text-gray-500">ยอดรวม</span>
-          <span className="text-lg font-semibold text-gray-900">฿{total.toLocaleString()}</span>
-        </div>
-        <button
-          type="button"
-          onClick={() => navigate('/checkout')}
-          className="w-full rounded-xl bg-rose-500 py-3 text-sm font-semibold text-white active:scale-[0.98]"
-        >
+      <footer className="sticky bottom-20 z-10 bg-surface-container-lowest px-4 pb-3 pt-2">
+        <Button full onClick={() => navigate('/checkout')}>
           ไปชำระเงิน
-        </button>
+        </Button>
       </footer>
     </div>
   )
