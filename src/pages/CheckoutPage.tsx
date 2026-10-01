@@ -1,8 +1,10 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { QRCodeSVG } from 'qrcode.react'
+import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { fetchSettings, fileToBase64, submitOrder } from '../lib/api'
 import { baht } from '../lib/format'
+import { promptPayPayload } from '../lib/promptpay'
 import type { BankInfo } from '../types'
 import { Button, Card, Icon, TextArea, TextField, TopAppBar } from '../ui'
 
@@ -18,6 +20,7 @@ export default function CheckoutPage() {
   const [bank, setBank] = useState<BankInfo>(DEFAULT_BANK)
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
+  const [lineId, setLineId] = useState('')
   const [address, setAddress] = useState('')
   const [note, setNote] = useState('')
   const [slip, setSlip] = useState<File | null>(null)
@@ -25,6 +28,7 @@ export default function CheckoutPage() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [copied, setCopied] = useState(false)
+  const qrPayload = useMemo(() => (bank.promptpay ? promptPayPayload(bank.promptpay, total) : null), [bank.promptpay, total])
 
   useEffect(() => {
     fetchSettings()
@@ -63,6 +67,7 @@ export default function CheckoutPage() {
         total,
         customerName: name,
         customerPhone: phone,
+        lineId: lineId.trim(),
         address,
         note,
         slipBase64,
@@ -102,12 +107,28 @@ export default function CheckoutPage() {
               {copied ? 'คัดลอกแล้ว' : 'คัดลอก'}
             </Button>
           </div>
-          {bank.promptpay && <p>พร้อมเพย์: {bank.promptpay}</p>}
+          {bank.promptpay && (
+            <p>
+              พร้อมเพย์: <span className="font-semibold tabular-nums">{bank.promptpay}</span>
+            </p>
+          )}
           <p className="pt-2 text-xl font-bold">ยอดที่ต้องโอน {baht(total)}</p>
         </Card>
 
+        {qrPayload && (
+          <Card className="flex flex-col items-center gap-2 p-4">
+            <p className="text-sm font-medium text-on-surface">สแกนจ่ายผ่านแอปธนาคาร</p>
+            <div className="rounded-md bg-white p-3">
+              <QRCodeSVG value={qrPayload} size={200} level="M" />
+            </div>
+            <p className="text-xl font-bold text-primary">{baht(total)}</p>
+            <p className="text-center text-xs text-on-surface-variant">ยอดถูกใส่ใน QR แล้ว ตรวจชื่อผู้รับให้ตรงกับ {bank.accountName} ก่อนยืนยันโอน</p>
+          </Card>
+        )}
+
         <TextField required label="ชื่อ-นามสกุล" value={name} onChange={(e) => setName(e.target.value)} />
         <TextField required type="tel" inputMode="tel" label="เบอร์โทรศัพท์" value={phone} onChange={(e) => setPhone(e.target.value)} />
+        <TextField required label="LINE ID" supporting="ใช้ติดต่อเรื่องออเดอร์และการจัดส่ง" autoCapitalize="none" autoCorrect="off" value={lineId} onChange={(e) => setLineId(e.target.value)} />
         <TextArea required label="ที่อยู่จัดส่ง" value={address} onChange={(e) => setAddress(e.target.value)} />
         <TextField label="หมายเหตุ (ถ้ามี)" value={note} onChange={(e) => setNote(e.target.value)} />
 

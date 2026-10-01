@@ -30,6 +30,7 @@ export interface Order {
   total: number
   customerName: string
   customerPhone: string
+  lineId?: string
   address: string
   note?: string
   slipUrl: string

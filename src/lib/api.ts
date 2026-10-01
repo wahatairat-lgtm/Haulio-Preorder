@@ -33,6 +33,7 @@ export interface NewOrderPayload {
   total: number
   customerName: string
   customerPhone: string
+  lineId: string
   address: string
   note: string
   slipBase64: string

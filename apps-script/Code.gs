@@ -103,6 +103,7 @@ function findOrder(orderId) {
     id: match.orderId,
     customerName: match.customerName,
     customerPhone: match.customerPhone,
+    lineId: match.lineId || '',
     address: match.address,
     note: match.note,
     items: JSON.parse(match.itemsJson || '[]'),
@@ -129,6 +130,7 @@ function createOrder(body) {
     body.total,
     slipUrl,
     'pending',
+    body.lineId || '',
   ])
 
   return orderId
