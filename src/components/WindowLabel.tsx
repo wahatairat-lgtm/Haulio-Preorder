@@ -58,7 +58,7 @@ export default function WindowLabel({ country, openRange, shipDate }: { country:
           </div>
         </div>
       ) : (
-        <p className="px-4 pb-3 pt-1 text-xl font-semibold text-on-surface">เปิดรับ {openRange || '—'}</p>
+        <p className="px-4 pb-3 pt-1 text-xl font-semibold text-on-surface">เปิดรับ {openRange || '-'}</p>
       )}
 
       {/* รอยปรุแบบตั๋ว */}
@@ -69,7 +69,7 @@ export default function WindowLabel({ country, openRange, shipDate }: { country:
       <div className="flex items-center gap-2 px-4 py-2.5 text-sm text-on-surface-variant">
         <Icon name="truck" size={18} className="text-primary" />
         <span>จัดส่ง</span>
-        <span className="num font-semibold text-on-surface">{shipDate || '—'}</span>
+        <span className="num font-semibold text-on-surface">{shipDate || '-'}</span>
       </div>
     </section>
   )

@@ -25,7 +25,7 @@ export default function Button({ variant = 'filled', icon, full, className, chil
     <button
       type={type}
       className={cx(
-        'inline-flex h-12 items-center justify-center gap-2 rounded-md px-6 text-sm font-semibold tracking-wide transition-colors',
+        'inline-flex h-12 items-center justify-center gap-2 rounded-md px-6 text-sm font-semibold tracking-wide transition-[colors,transform] motion-safe:active:scale-[0.98]',
         VARIANT[variant],
         full && 'w-full',
         className,

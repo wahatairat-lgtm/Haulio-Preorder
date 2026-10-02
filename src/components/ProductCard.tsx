@@ -3,10 +3,10 @@ import { productImage } from '../lib/image'
 import type { Product } from '../types'
 import { cx, Icon, ProductImage } from '../ui'
 
-export default function ProductCard({ product, onOpen }: { product: Product; onOpen: (product: Product) => void }) {
+export default function ProductCard({ product, onOpen, index = 0 }: { product: Product; onOpen: (product: Product) => void; index?: number }) {
   const options = product.variants?.length ?? 0
   return (
-    <article className="flex flex-col gap-2.5">
+    <article className="rise flex flex-col gap-2.5" style={{ ['--i' as string]: index % 8 }}>
       <button type="button" onClick={() => onOpen(product)} className="relative block w-full text-left" aria-label={product.name}>
         <ProductImage
           src={productImage(product)}

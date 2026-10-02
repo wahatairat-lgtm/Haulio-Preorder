@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import logo from '../assets/logo.jpg'
 import ProductCard from '../components/ProductCard'
 import ProductSheet from '../components/ProductSheet'
@@ -16,7 +16,8 @@ export default function CatalogPage() {
   const [products, setProducts] = useState<Product[]>(() => cachedProducts() ?? [])
   const [loading, setLoading] = useState(() => !cachedProducts())
   const [failed, setFailed] = useState(false)
-  const [tab, setTab] = useState<Category>('kr')
+  const [searchParams] = useSearchParams()
+  const [tab, setTab] = useState<Category>(searchParams.get('tab') === 'jp' ? 'jp' : 'kr')
   const [type, setType] = useState('')
   const [query, setQuery] = useState('')
   const [schedule, setSchedule] = useState<Schedule | null>(() => cachedSettings()?.schedule ?? null)
@@ -135,8 +136,8 @@ export default function CatalogPage() {
           </div>
         )}
         <div className="grid grid-cols-2 gap-x-3 gap-y-6">
-          {visible.map((p) => (
-            <ProductCard key={p.id} product={p} onOpen={setSelected} />
+          {visible.map((p, i) => (
+            <ProductCard key={p.id} product={p} onOpen={setSelected} index={i} />
           ))}
         </div>
       </main>

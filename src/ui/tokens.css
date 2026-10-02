@@ -1,34 +1,33 @@
-/* สร้างโดย scripts/gen-tokens.mjs — อย่าแก้ตรงนี้ */
+/* สร้างโดย scripts/gen-tokens.mjs อย่าแก้ตรงนี้ */
 @theme static {
   --color-primary: #550017;
-  --color-on-primary: #fff9f4;
-  --color-primary-container: #ecd8cf;
+  --color-on-primary: #fafafa;
+  --color-primary-container: #f3e8eb;
   --color-on-primary-container: #3d0010;
-  --color-secondary: #7a6247;
-  --color-on-secondary: #fffaf2;
-  --color-secondary-container: #eadcc4;
-  --color-on-secondary-container: #3a2c19;
-  --color-tertiary: #8a6a3e;
-  --color-tertiary-container: #d8c19a;
-  --color-on-tertiary-container: #3b2a10;
+  --color-secondary: #52525b;
+  --color-on-secondary: #fafafa;
+  --color-secondary-container: #e4e4e7;
+  --color-on-secondary-container: #18181b;
+  --color-tertiary: #71717a;
+  --color-tertiary-container: #e4e4e7;
+  --color-on-tertiary-container: #3f3f46;
   --color-error: #b3261e;
   --color-on-error: #ffffff;
   --color-error-container: #f6dcd7;
   --color-on-error-container: #5c130d;
-  --color-surface: #fbf8f2;
-  --color-surface-container-lowest: #fffdf9;
-  --color-surface-container-low: #f6f1e8;
-  --color-surface-container: #f0e9dc;
-  --color-surface-container-high: #e9e0d0;
-  --color-surface-container-highest: #e1d6c3;
-  --color-on-surface: #2a1a1d;
-  --color-on-surface-variant: #6a5a58;
-  --color-outline: #9c8d80;
-  --color-outline-variant: #dcd0bd;
-  --color-inverse-primary: #ffb2b9;
+  --color-surface: #fafafa;
+  --color-surface-container-lowest: #fdfdfd;
+  --color-surface-container-low: #f4f4f5;
+  --color-surface-container: #efeff1;
+  --color-surface-container-high: #e8e8ea;
+  --color-surface-container-highest: #e0e0e3;
+  --color-on-surface: #18181b;
+  --color-on-surface-variant: #52525b;
+  --color-outline: #a1a1aa;
+  --color-outline-variant: #dcdce0;
+  --color-inverse-primary: #ffb2c4;
   --color-scrim: #000000;
 
-  /* รูปทรง: ป้าย/กล่อง ไม่ใช่ก้อนลอย */
   --radius-xs: 3px;
   --radius-sm: 6px;
   --radius-md: 8px;
@@ -37,9 +36,41 @@
 
   /* ความลึก = เส้นขอบบางเป็นหลัก เงามีเฉพาะชั้นที่ลอยจริง (bottom sheet / snackbar) */
   --shadow-e1: none;
-  --shadow-e2: 0 1px 2px rgb(42 26 29 / 0.12);
-  --shadow-e3: 0 -8px 32px rgb(42 26 29 / 0.16);
+  --shadow-e2: 0 1px 2px rgb(24 24 27 / 0.12);
+  --shadow-e3: 0 -8px 32px rgb(24 24 27 / 0.16);
 
   --font-sans: 'Prompt', system-ui, sans-serif;
-  --font-mono: 'Prompt', system-ui, sans-serif; /* รหัส/ตัวเลข ใช้ฟอนต์เดียวกัน + tabular-nums */
+  --font-mono: 'Prompt', system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #e5668a;
+    --color-on-primary: #1c0008;
+    --color-primary-container: #3a1220;
+    --color-on-primary-container: #ffd9e1;
+    --color-secondary: #a1a1aa;
+    --color-on-secondary: #18181b;
+    --color-secondary-container: #2d2c31;
+    --color-on-secondary-container: #ececee;
+    --color-tertiary: #a1a1aa;
+    --color-tertiary-container: #2d2c31;
+    --color-on-tertiary-container: #d4d4d8;
+    --color-error: #f2b8b5;
+    --color-on-error: #601410;
+    --color-error-container: #8c1d18;
+    --color-on-error-container: #ffdad6;
+    --color-surface: #0e0d0f;
+    --color-surface-container-lowest: #0a090b;
+    --color-surface-container-low: #151417;
+    --color-surface-container: #1a191c;
+    --color-surface-container-high: #232226;
+    --color-surface-container-highest: #2d2c31;
+    --color-on-surface: #ececee;
+    --color-on-surface-variant: #a1a1aa;
+    --color-outline: #71717a;
+    --color-outline-variant: #2f2e33;
+    --color-inverse-primary: #550017;
+    --color-scrim: #000000;
+  }
 }

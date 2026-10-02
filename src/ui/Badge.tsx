@@ -4,7 +4,9 @@ export default function Badge({ count, className }: { count: number; className?:
   if (count <= 0) return null
   return (
     <span
+      key={count}
       className={cx(
+        'pop',
         'inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-error px-1 text-[11px] font-medium leading-none text-on-error',
         className,
       )}

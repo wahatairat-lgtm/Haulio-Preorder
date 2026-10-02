@@ -2,7 +2,7 @@
 @import "./ui/tokens.css";
 
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
 }
 
 html,
@@ -43,6 +43,60 @@ button {
 /* โลโก้เป็น JPEG พื้นขาว — ผสมให้กลืนกับกระดาษ */
 .logo-ink {
   mix-blend-mode: multiply;
+}
+
+/* โลโก้เป็น JPEG พื้นขาว: โหมดมืดวางบนแผ่นสว่างเพื่อให้อ่านออก */
+@media (prefers-color-scheme: dark) {
+  .logo-ink {
+    mix-blend-mode: normal;
+    background: #f4f4f5;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+}
+
+/* Motion: เบาและมีเหตุผล (ฟีดแบ็กการกด, การเปิดชั้นใหม่, ลำดับการเล่าเรื่องในหน้า landing) ปิดทั้งหมดเมื่อผู้ใช้ตั้ง reduce motion */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+  .rise {
+    animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--i, 0) * 45ms);
+  }
+  @keyframes sheet-up {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: none; }
+  }
+  .sheet-in {
+    animation: sheet-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .fade-in {
+    animation: fade-in 0.2s ease-out;
+  }
+  @keyframes pop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+  }
+  .pop {
+    animation: pop 0.3s ease-out;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--i, 0) * 80ms);
+  }
+  .reveal[data-in='true'] {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .num {

@@ -21,7 +21,7 @@ export default function NavigationBar({ items }: { items: NavItem[] }) {
             <>
               {isActive && <span className="absolute inset-x-6 -top-px h-0.5 bg-primary" />}
               <span className={cx('relative', isActive ? 'text-primary' : 'text-on-surface-variant')}>
-                <Icon name={item.icon} size={22} />
+                <Icon name={item.icon} size={24} weight={isActive ? 'fill' : 'regular'} />
                 {item.badge ? <Badge count={item.badge} className="absolute -right-3 -top-1.5" /> : null}
               </span>
               <span className={cx('text-[11px]', isActive ? 'font-semibold text-on-surface' : 'font-medium text-on-surface-variant')}>{item.label}</span>
