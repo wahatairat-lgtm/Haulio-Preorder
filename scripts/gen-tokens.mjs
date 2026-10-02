@@ -1,69 +1,65 @@
-// สร้าง src/ui/tokens.css (Material 3 color roles) จากสีหลักของโลโก้ Haulio
-// usage: node scripts/gen-tokens.mjs
+// สร้าง src/ui/tokens.css — โทเคนสีของ Haulio
+// ที่มาของสี: มารูนจากโลโก้ (#550017) เป็นสีเน้นเดียว, พื้นเป็นกระดาษขาวนวล, หมึกเป็นมารูนเข้มเกือบดำ,
+// คราฟท์ = สีลังพัสดุ ใช้กับป้าย/ช่องรูปที่ยังไม่มีภาพ  (ชื่อ role ยังใช้ตามมาตรฐาน M3 เพื่อให้คอมโพเนนต์ใช้ซ้ำได้)
+// usage: node scripts/gen-tokens.mjs  (หรือ npm run tokens)
 import { writeFileSync } from 'node:fs'
-import {
-  argbFromHex,
-  hexFromArgb,
-  Hct,
-  MaterialDynamicColors as M,
-  SchemeTonalSpot,
-} from '@material/material-color-utilities'
 
-const SEED = '#550017' // สีโลโก้ Haulio
-
-const scheme = new SchemeTonalSpot(Hct.fromInt(argbFromHex(SEED)), false, 0)
-const role = (name) => hexFromArgb(M[name].getArgb(scheme))
-
-const roles = {
-  // primary = สีโลโก้ตรงๆ (M3 ปกติใช้ tone 40 ซึ่งอ่อนกว่าโลโก้)
-  primary: SEED,
-  'on-primary': '#ffffff',
-  'primary-container': role('primaryContainer'),
-  'on-primary-container': role('onPrimaryContainer'),
-  secondary: role('secondary'),
-  'on-secondary': role('onSecondary'),
-  'secondary-container': role('secondaryContainer'),
-  'on-secondary-container': role('onSecondaryContainer'),
-  tertiary: role('tertiary'),
-  'tertiary-container': role('tertiaryContainer'),
-  'on-tertiary-container': role('onTertiaryContainer'),
-  error: role('error'),
-  'on-error': role('onError'),
-  'error-container': role('errorContainer'),
-  'on-error-container': role('onErrorContainer'),
-  surface: role('surface'),
-  'on-surface': role('onSurface'),
-  'on-surface-variant': role('onSurfaceVariant'),
-  'surface-container-lowest': role('surfaceContainerLowest'),
-  'surface-container-low': role('surfaceContainerLow'),
-  'surface-container': role('surfaceContainer'),
-  'surface-container-high': role('surfaceContainerHigh'),
-  'surface-container-highest': role('surfaceContainerHighest'),
-  outline: role('outline'),
-  'outline-variant': role('outlineVariant'),
-  'inverse-primary': role('inversePrimary'),
+const palette = {
+  // เน้น
+  primary: '#550017', // โลโก้
+  'on-primary': '#fff9f4',
+  'primary-container': '#ecd8cf', // คราฟท์อ่อนอมแดง — ปุ่ม tonal, การ์ดบัญชีธนาคาร
+  'on-primary-container': '#3d0010',
+  // คราฟท์ (secondary = สถานะที่เลือก/ใช้งานอยู่)
+  secondary: '#7a6247',
+  'on-secondary': '#fffaf2',
+  'secondary-container': '#eadcc4',
+  'on-secondary-container': '#3a2c19',
+  // กล่องคราฟท์เต็มสี — ป้าย/ช่องรูปว่าง
+  tertiary: '#8a6a3e',
+  'tertiary-container': '#d8c19a',
+  'on-tertiary-container': '#3b2a10',
+  // ตรายาง/สถานะผิดพลาด
+  error: '#b3261e',
+  'on-error': '#ffffff',
+  'error-container': '#f6dcd7',
+  'on-error-container': '#5c130d',
+  // กระดาษ (ไล่ระดับเบามาก)
+  surface: '#fbf8f2',
+  'surface-container-lowest': '#fffdf9',
+  'surface-container-low': '#f6f1e8',
+  'surface-container': '#f0e9dc',
+  'surface-container-high': '#e9e0d0',
+  'surface-container-highest': '#e1d6c3',
+  // หมึก
+  'on-surface': '#2a1a1d',
+  'on-surface-variant': '#6a5a58',
+  outline: '#9c8d80',
+  'outline-variant': '#dcd0bd',
+  'inverse-primary': '#ffb2b9',
   scrim: '#000000',
 }
 
-const lines = Object.entries(roles).map(([k, v]) => `  --color-${k}: ${v};`)
-const css = `/* สร้างโดย scripts/gen-tokens.mjs จากสี ${SEED} — อย่าแก้ตรงนี้ */
+const lines = Object.entries(palette).map(([k, v]) => `  --color-${k}: ${v};`)
+const css = `/* สร้างโดย scripts/gen-tokens.mjs — อย่าแก้ตรงนี้ */
 @theme static {
 ${lines.join('\n')}
 
-  /* M3 shape scale */
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 28px;
+  /* รูปทรง: ป้าย/กล่อง ไม่ใช่ก้อนลอย */
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 16px;
 
-  /* M3 elevation */
-  --shadow-e1: 0 1px 2px rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
-  --shadow-e2: 0 1px 2px rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
-  --shadow-e3: 0 4px 8px 3px rgb(0 0 0 / 0.15), 0 1px 3px rgb(0 0 0 / 0.3);
+  /* ความลึก = เส้นขอบบางเป็นหลัก เงามีเฉพาะชั้นที่ลอยจริง (bottom sheet / snackbar) */
+  --shadow-e1: none;
+  --shadow-e2: 0 1px 2px rgb(42 26 29 / 0.12);
+  --shadow-e3: 0 -8px 32px rgb(42 26 29 / 0.16);
 
-  --font-sans: 'Poppins', 'Noto Sans Thai', system-ui, sans-serif;
+  --font-sans: 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 }
 `
 writeFileSync(new URL('../src/ui/tokens.css', import.meta.url), css)
-console.log(css)
+console.log('tokens.css written')

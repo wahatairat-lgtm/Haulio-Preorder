@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { baht } from '../lib/format'
 import { Button, Card } from '../ui'
 
-const FONT = "'Poppins', 'Noto Sans Thai', sans-serif"
+const FONT = "'IBM Plex Sans Thai', 'IBM Plex Mono', sans-serif"
 
 /** วาด QR + ยอด + ชื่อบัญชี ลงรูปเดียว เพื่อให้เซฟเก็บไว้สแกนจากแกลเลอรีได้ */
 function compose(qr: HTMLCanvasElement, amount: number, name: string): string {
@@ -43,8 +43,8 @@ export default function PromptPayQr({ payload, amount, accountName }: { payload:
     let cancelled = false
     ;(async () => {
       try {
-        await document.fonts.load(`700 44px Poppins`)
-        await document.fonts.load(`500 28px 'Noto Sans Thai'`, 'สแกน')
+        await document.fonts.load(`700 44px 'IBM Plex Sans Thai'`, 'สแกน')
+        await document.fonts.load(`500 28px 'IBM Plex Sans Thai'`, 'สแกน')
       } catch {
         // ใช้ฟอนต์สำรอง
       }

@@ -12,6 +12,7 @@ const RULES: ProductType[] = [
   { label: 'กันแดด', keywords: 'sunscreen sun uv spf กันแดด', test: /sunscreen|\bsun\b|\buv\b|spf/ },
   { label: 'เมคอัพ', keywords: 'makeup cosmetic เมคอัพ เครื่องสำอาง', test: /tint|cushion|foundation|lip(stick|\b)/ },
   { label: 'อาหารเสริม', keywords: 'supplement vitamin วิตามิน อาหารเสริม', test: /tablet|supplement|yakult|gummy|vitamin/ },
+  { label: 'โปรตีน & เฮลตี้', keywords: 'protein shake bar healthy snack diet โปรตีน เฮลตี้ ไดเอท', test: /protein|crunt|delight project/ },
   { label: 'ขนม', keywords: 'snack sweet chocolate dessert ขนม ช็อกโกแลต ของหวาน', test: /chocolate|royce|shiroi|koibito|potato chip|caramel|cookie|snack/ },
   { label: 'ชา & มัทฉะ', keywords: 'tea matcha green ชา มัทฉะ ชาเขียว', test: /matcha|gyokuro|ocha|yamecha|ippodo|\btea\b/ },
   { label: 'กาแฟ & แก้ว', keywords: 'coffee drinkware กาแฟ', test: /blue bottle|coffee|espresso|tumbl|\bcup\b|miir|kinto/ },

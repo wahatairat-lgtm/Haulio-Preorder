@@ -4,7 +4,7 @@ import { cx } from './cx'
 const BASE =
   'peer w-full rounded-sm border border-outline bg-transparent px-4 text-base text-on-surface outline-none transition-colors placeholder-transparent focus:border-2 focus:border-primary'
 const LABEL =
-  'pointer-events-none absolute left-3 origin-left bg-surface-container-lowest px-1 text-on-surface-variant transition-all ' +
+  'pointer-events-none absolute left-3 origin-left bg-surface px-1 text-on-surface-variant transition-all ' +
   'peer-focus:-translate-y-[1.6rem] peer-focus:text-xs peer-focus:text-primary ' +
   'peer-[:not(:placeholder-shown)]:-translate-y-[1.6rem] peer-[:not(:placeholder-shown)]:text-xs'
 

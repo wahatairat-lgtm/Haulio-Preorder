@@ -54,7 +54,7 @@ export default function TrackOrderPage() {
           <>
             <Card className="space-y-3 p-4">
               <div className="flex items-center justify-between gap-2">
-                <span className="text-sm font-semibold tracking-wide text-on-surface">{order.id}</span>
+                <span className="font-mono text-sm font-semibold tracking-wider text-on-surface">{order.id}</span>
                 <StatusBadge status={order.status} />
               </div>
               {order.status !== 'rejected' && stepIndex >= 0 && (
@@ -82,7 +82,7 @@ export default function TrackOrderPage() {
             <Card className="divide-y divide-outline-variant">
               {order.items.map((item) => (
                 <div key={item.productId + (item.variant ?? '')} className="flex items-center gap-3 p-3 text-sm">
-                  <ProductImage src={item.imageUrl} alt={item.name} className="h-14 w-12 flex-none rounded-sm" />
+                  <ProductImage src={item.imageUrl} alt={item.name} code={item.productId} className="h-14 w-12 flex-none rounded-sm border border-outline-variant" />
                   <span className="min-w-0 flex-1">
                     <span className="line-clamp-2 text-on-surface">{item.name}</span>
                     {item.variant && <span className="block truncate text-xs text-on-surface-variant">{item.variant}</span>}
@@ -92,7 +92,7 @@ export default function TrackOrderPage() {
               ))}
               <div className="flex items-baseline justify-between p-3">
                 <span className="text-sm text-on-surface-variant">ยอดรวม</span>
-                <span className="text-lg font-bold text-primary">{baht(order.total)}</span>
+                <span className="num text-lg font-semibold text-on-surface">{baht(order.total)}</span>
               </div>
             </Card>
           </>

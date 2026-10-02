@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Badge, Button, Card, Chip, Icon, IconButton, ProductImage, QuantityStepper, SearchBar, SegmentedButton, TextField, TopAppBar } from '../ui'
+import WindowLabel from '../components/WindowLabel'
+import { Badge, Button, Card, Chip, Icon, IconButton, ProductImage, QuantityStepper, SearchBar, SegmentedButton, Tabs, TextField, TopAppBar } from '../ui'
 
 const COLORS = [
   'primary',
@@ -32,12 +33,13 @@ export default function UiKitPage() {
   const [seg, setSeg] = useState<'a' | 'b'>('a')
   const [chip, setChip] = useState(true)
   const [qty, setQty] = useState(1)
+  const [tab, setTab] = useState<'kr' | 'jp'>('jp')
 
   return (
     <div className="flex-1 divide-y divide-outline-variant/50 pb-6">
       <TopAppBar title="Haulio UI" />
 
-      <Section title="Color roles (Material 3 จากสีโลโก้ #550017)">
+      <Section title="สี (กระดาษ · คราฟท์ · หมึก · มารูนโลโก้ #550017)">
         <div className="grid grid-cols-3 gap-2">
           {COLORS.map((c) => (
             <div key={c} className="space-y-1">
@@ -63,6 +65,11 @@ export default function UiKitPage() {
           <IconButton icon="add" label="add" variant="outlined" />
           <IconButton icon="add" label="add" />
         </div>
+      </Section>
+
+      <Section title="ป้ายรอบพรีออเดอร์ (signature)">
+        <WindowLabel country="ญี่ปุ่น" openRange="1 ต.ค. – 3 ม.ค." shipDate="5 ม.ค." />
+        <Tabs options={[{ value: 'kr' as const, label: 'เกาหลี', count: 18 }, { value: 'jp' as const, label: 'ญี่ปุ่น', count: 58 }]} value={tab} onChange={setTab} />
       </Section>
 
       <Section title="Chips / Segmented / Stepper / Badge">
@@ -101,7 +108,7 @@ export default function UiKitPage() {
           <Card variant="elevated" className="p-3">Elevated</Card>
           <Card variant="outlined" className="p-3">Outlined</Card>
         </div>
-        <ProductImage alt="placeholder" className="aspect-4/5 w-32 rounded-xl" />
+        <ProductImage alt="placeholder" brand="Elixir" code="C01" className="aspect-4/5 w-32 rounded-md border border-outline-variant" />
       </Section>
     </div>
   )

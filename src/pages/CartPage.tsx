@@ -12,8 +12,8 @@ export default function CartPage() {
       <div className="flex flex-1 flex-col">
         <TopAppBar title="ตะกร้าของฉัน" />
         <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
-          <span className="flex h-20 w-20 items-center justify-center rounded-full bg-primary-container text-on-primary-container">
-            <Icon name="bag" size={36} />
+          <span className="flex size-16 items-center justify-center border border-dashed border-outline text-on-surface-variant">
+            <Icon name="bag" size={30} />
           </span>
           <p className="text-sm text-on-surface-variant">ตะกร้ายังว่างอยู่</p>
           <Link to="/">
@@ -31,7 +31,7 @@ export default function CartPage() {
       <main className="flex-1 space-y-3 px-4 pb-4 pt-2">
         {items.map((item) => (
           <Card key={item.productId + (item.variant ?? '')} className="flex gap-3 p-3">
-            <ProductImage src={item.imageUrl} alt={item.name} className="h-24 w-20 flex-none rounded-md" />
+            <ProductImage src={item.imageUrl} alt={item.name} code={item.productId} className="h-24 w-20 flex-none rounded-md border border-outline-variant" />
             <div className="flex min-w-0 flex-1 flex-col justify-between">
               <div className="flex items-start gap-1">
                 <div className="min-w-0 flex-1">
@@ -47,7 +47,7 @@ export default function CartPage() {
                 />
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-base font-semibold text-primary">{baht(item.price)}</span>
+                <span className="num text-base font-semibold text-on-surface">{baht(item.price)}</span>
                 <QuantityStepper value={item.qty} onChange={(n) => setQty(item.productId, n, item.variant)} />
               </div>
             </div>
@@ -61,12 +61,12 @@ export default function CartPage() {
           </div>
           <div className="flex items-baseline justify-between border-t border-outline-variant pt-2">
             <span className="font-medium text-on-surface">ยอดรวม</span>
-            <span className="text-xl font-bold text-primary">{baht(total)}</span>
+            <span className="num text-xl font-semibold text-on-surface">{baht(total)}</span>
           </div>
         </Card>
       </main>
 
-      <footer className="sticky bottom-20 z-10 bg-surface-container-lowest px-4 pb-3 pt-2">
+      <footer className="sticky bottom-[68px] z-10 bg-surface px-4 pb-3 pt-2">
         <Button full onClick={() => navigate('/checkout')}>
           ไปชำระเงิน
         </Button>

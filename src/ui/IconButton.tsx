@@ -8,7 +8,7 @@ const VARIANT: Record<IconButtonVariant, string> = {
   standard: 'text-on-surface-variant active:bg-on-surface/10',
   filled: 'bg-primary text-on-primary active:bg-primary/90',
   tonal: 'bg-secondary-container text-on-secondary-container active:bg-secondary-container/80',
-  outlined: 'border border-outline text-on-surface-variant active:bg-on-surface/10',
+  outlined: 'border border-on-surface/30 text-on-surface active:bg-on-surface/10',
 }
 
 interface IconButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {

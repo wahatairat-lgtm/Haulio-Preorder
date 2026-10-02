@@ -14,7 +14,7 @@ body {
   margin: 0;
   font-family: var(--font-sans);
   color: var(--color-on-surface);
-  background: var(--color-surface-container);
+  background: var(--color-surface-container-high);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
 }
@@ -22,9 +22,9 @@ body {
 #root {
   max-width: 480px;
   margin: 0 auto;
-  background: var(--color-surface-container-lowest);
+  background: var(--color-surface);
   min-height: 100svh;
-  box-shadow: 0 0 24px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0 0 1px var(--color-outline-variant);
   display: flex;
   flex-direction: column;
 }
@@ -38,6 +38,15 @@ button {
 
 button {
   cursor: pointer;
+}
+
+/* โลโก้เป็น JPEG พื้นขาว — ผสมให้กลืนกับกระดาษ */
+.logo-ink {
+  mix-blend-mode: multiply;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
 }
 
 .no-scrollbar {

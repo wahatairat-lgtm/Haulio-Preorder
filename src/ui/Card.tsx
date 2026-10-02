@@ -6,7 +6,7 @@ export type CardVariant = 'filled' | 'tonal' | 'elevated' | 'outlined'
 const VARIANT: Record<CardVariant, string> = {
   filled: 'bg-surface-container-highest',
   tonal: 'bg-primary-container text-on-primary-container',
-  elevated: 'bg-surface-container-low shadow-e1',
+  elevated: 'bg-surface-container-low border border-outline-variant',
   outlined: 'bg-surface-container-lowest border border-outline-variant',
 }
 
