@@ -2,7 +2,7 @@
 @import "./ui/tokens.css";
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
 html,
@@ -43,16 +43,6 @@ button {
 /* โลโก้เป็น JPEG พื้นขาว — ผสมให้กลืนกับกระดาษ */
 .logo-ink {
   mix-blend-mode: multiply;
-}
-
-/* โลโก้เป็น JPEG พื้นขาว: โหมดมืดวางบนแผ่นสว่างเพื่อให้อ่านออก */
-@media (prefers-color-scheme: dark) {
-  .logo-ink {
-    mix-blend-mode: normal;
-    background: #f4f4f5;
-    padding: 4px 8px;
-    border-radius: 6px;
-  }
 }
 
 /* Motion: เบาและมีเหตุผล (ฟีดแบ็กการกด, การเปิดชั้นใหม่, ลำดับการเล่าเรื่องในหน้า landing) ปิดทั้งหมดเมื่อผู้ใช้ตั้ง reduce motion */

@@ -1,6 +1,6 @@
 // สร้าง src/ui/tokens.css — โทเคนสีของ Haulio
 // พาเลต: ครีมอมชมพู (ชุด M3 แรก จากสีโลโก้ #550017) มารูนโลโก้เป็นสีเน้น
-// ชื่อ role ตามมาตรฐาน M3 เพื่อให้คอมโพเนนต์ใช้ซ้ำได้ มีโหมดมืด (ตาม prefers-color-scheme) โทนอุ่นเข้าชุดกัน
+// ชื่อ role ตามมาตรฐาน M3 เพื่อให้คอมโพเนนต์ใช้ซ้ำได้ ล็อกโหมดสว่างเสมอ (ไม่ตามค่า dark mode ของเครื่อง)
 // usage: node scripts/gen-tokens.mjs  (หรือ npm run tokens)
 import { writeFileSync } from 'node:fs'
 
@@ -85,11 +85,6 @@ ${vars(light, '  ')}
   --font-mono: 'Prompt', system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-${vars(dark, '    ')}
-  }
-}
 `
 writeFileSync(new URL('../src/ui/tokens.css', import.meta.url), css)
 console.log('tokens.css written')
