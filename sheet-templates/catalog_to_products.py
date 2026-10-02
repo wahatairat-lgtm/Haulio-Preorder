@@ -15,6 +15,11 @@ import sys
 
 MIN_MARKUP = 0.35
 MAX_MARKUP = 0.40
+# สินค้าเดียวกันที่ใน Catelog แยกแถวตามรส -> รวมเป็นสินค้าเดียวที่เลือกรสได้ (รหัสแรกเป็นรหัสหลัก)
+MERGES = [
+    ("Royce Nama Chocolate", ["S01", "S02", "S03"], ["Matcha", "Au Lait", "Bitter"]),
+    ("Royce Potato Chip Chocolate", ["S04", "S05"], ["Original", "Mild Bitter"]),
+]
 CATEGORY = "jp"  # แอปกรองด้วย kr / jp เท่านั้น แบรนด์เก็บในคอลัมน์ brand
 
 
@@ -61,6 +66,14 @@ def main(path, rate):
         if not re.match(r"https?://\S+\.(jpg|jpeg|png|webp)$", img, re.I):
             img = ""
         products.append([code, name, CATEGORY, price, img, "", "", "", "TRUE", brand])
+
+    for name, codes, flavors in MERGES:
+        rows_ = [x for x in products if x[0] in codes]
+        if len(rows_) == len(codes):
+            head = rows_[0]
+            head[1] = name
+            head[7] = ", ".join(flavors)
+            products = [x for x in products if x not in rows_[1:]]
 
     with open("Products.new.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)

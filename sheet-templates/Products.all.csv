@@ -32,11 +32,8 @@ M02,Sayaka-no-mukashi,jp,690,,,,,TRUE,yamecha monogatari
 F01,3-PACK POCKET T-SHIRT SET,jp,2290,,,,,TRUE,Human made
 F02,6PANEL TWILL CAP,jp,2490,,,,,TRUE,Human made
 F03,Heart Key Ring,jp,990,,,,,TRUE,Human made
-S01,Nama Chocolate [Matcha],jp,390,,,,,TRUE,Royce
-S02,Nama Chocolate [Au Lait],jp,390,,,,,TRUE,Royce
-S03,Nama Chocolate [Bitter],jp,390,,,,,TRUE,Royce
-S04,Potato Chip Chocolate [Original],jp,390,,,,,TRUE,Royce
-S05,Potato Chip Chocolate [Mild Bitter],jp,390,,,,,TRUE,Royce
+S01,Royce Nama Chocolate,jp,390,,,,"Matcha, Au Lait, Bitter",TRUE,Royce
+S04,Royce Potato Chip Chocolate,jp,390,,,,"Original, Mild Bitter",TRUE,Royce
 S06,Potato Chip Caramel,jp,390,,,,,TRUE,Royce
 S07,Matcha Bar Chocolate [12pcs],jp,590,https://www.royce.com/images/pc/english/product/barchocolate/maccha12_m.jpg,,,,TRUE,Royce
 M03,OKUMIDORI,jp,890,https://www.ochamura.com/Contents/ProductImages/0/60285_LL.jpg,,,,TRUE,Ochamaru - Yame
@@ -51,7 +48,7 @@ M11,SAMIDORI,jp,1190,https://www.ochamura.com/Contents/ProductImages/0/60293_LL.
 M12,Uji Matcha,jp,790,https://www.ochamura.com/Contents/ProductImages/0/60294_LL.jpg,,,,TRUE,Ochamaru - Uji
 M13,Chajyu-no-mukashi,jp,4390,,,,,TRUE,Ochamaru - Uji
 M14,Kasuga-no-mukashi,jp,2890,,,,,TRUE,Ochamaru - Uji
-M15,Kaguraden,jp,2290,,,,,TRUE,Ochamaru - Uji
+M15,Kaguraden,jp,2190,,,,,TRUE,Ochamaru - Uji
 M16,Seiun,jp,1490,,,,,TRUE,Ochamaru - Uji
 M17,Tennouzan,jp,1090,,,,,TRUE,Ochamaru - Uji
 M18,Senjin-no-mukashi,jp,990,,,,,TRUE,Ochamaru - Uji
@@ -74,3 +71,7 @@ K11,Goodal Green Tangerine Vita C Dark Spot Serum 30ml,kr,890,,,,,TRUE,Goodal
 K12,TIRTIR Mask Fit Red Cushion Foundation,kr,790,,,,,TRUE,TIRTIR
 K13,CLIO Kill Cover Founwear Cushion,kr,890,,,,,TRUE,CLIO
 K14,Leaders Mediu Amino Pore Tight Mask (10 sheets),kr,690,,,,,TRUE,Leaders
+K15,Crunt!n Crunchy Ball Protein Shake 50g,kr,190,,,,"Cookie Milk, Blueberry Yogurt Pop, Matcha Crush, Choco Is Back, Honey Sweet Potato, Corn Flakee, Grain Granola",TRUE,Crunt!n
+K16,Crunt!n Chocopop Protein Bar 48.5g,kr,190,,,,"N.Y. Choco, Matcha Please, Yogur Berry Tok",TRUE,Crunt!n
+K17,Delight Project Glutinous Rice Potato Crisps 30g,kr,190,,,,"Green Onion Cream Cheese, Tomato Basil",TRUE,Delight Project
+K18,Delight Project Protein Shake 45g,kr,190,,,,"Black Sesame & Injeolmi, Pistachio Chocolate, Corn & Castella, Blueberry Yogurt, Strawberry Yogurt, Nutty Chocolate, Sweet Potato & Grains, Melon Milk",TRUE,Delight Project
