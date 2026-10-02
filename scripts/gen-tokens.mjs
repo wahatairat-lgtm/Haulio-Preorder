@@ -57,8 +57,8 @@ ${lines.join('\n')}
   --shadow-e2: 0 1px 2px rgb(42 26 29 / 0.12);
   --shadow-e3: 0 -8px 32px rgb(42 26 29 / 0.16);
 
-  --font-sans: 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-sans: 'Prompt', system-ui, sans-serif;
+  --font-mono: 'Prompt', system-ui, sans-serif; /* รหัส/ตัวเลข ใช้ฟอนต์เดียวกัน + tabular-nums */
 }
 `
 writeFileSync(new URL('../src/ui/tokens.css', import.meta.url), css)

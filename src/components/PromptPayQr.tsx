@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { baht } from '../lib/format'
 import { Button, Card } from '../ui'
 
-const FONT = "'IBM Plex Sans Thai', 'IBM Plex Mono', sans-serif"
+const FONT = "'Prompt', sans-serif"
 
 /** วาด QR + ยอด + ชื่อบัญชี ลงรูปเดียว เพื่อให้เซฟเก็บไว้สแกนจากแกลเลอรีได้ */
 function compose(qr: HTMLCanvasElement, amount: number, name: string): string {
@@ -43,8 +43,8 @@ export default function PromptPayQr({ payload, amount, accountName }: { payload:
     let cancelled = false
     ;(async () => {
       try {
-        await document.fonts.load(`700 44px 'IBM Plex Sans Thai'`, 'สแกน')
-        await document.fonts.load(`500 28px 'IBM Plex Sans Thai'`, 'สแกน')
+        await document.fonts.load(`700 44px 'Prompt'`, 'สแกน')
+        await document.fonts.load(`500 28px 'Prompt'`, 'สแกน')
       } catch {
         // ใช้ฟอนต์สำรอง
       }
@@ -84,9 +84,10 @@ export default function PromptPayQr({ payload, amount, accountName }: { payload:
       <Button variant="tonal" icon="download" full disabled={!image} onClick={save}>
         บันทึก QR
       </Button>
-      <p className="text-center text-xs text-on-surface-variant">
-        ยอดถูกใส่ใน QR แล้ว กดค้างที่รูปก็บันทึกได้ ตรวจชื่อผู้รับให้ตรงกับ {accountName} ก่อนยืนยันโอน
-      </p>
+      <div className="text-center text-xs text-on-surface-variant">
+        <p>ยอด {baht(amount)} ถูกใส่ใน QR แล้ว กดค้างที่รูปเพื่อบันทึกได้</p>
+        <p className="mt-1">ก่อนโอน เช็คว่าชื่อผู้รับตรงกับ {accountName}</p>
+      </div>
     </Card>
   )
 }
