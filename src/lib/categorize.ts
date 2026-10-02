@@ -17,7 +17,7 @@ const RULES: ProductType[] = [
   { label: 'ชา & มัทฉะ', keywords: 'tea matcha green ชา มัทฉะ ชาเขียว', test: /matcha|gyokuro|ocha|yamecha|ippodo|\btea\b/ },
   { label: 'กาแฟ & แก้ว', keywords: 'coffee drinkware กาแฟ', test: /blue bottle|coffee|espresso|tumbl|\bcup\b|miir|kinto/ },
   { label: 'อุปกรณ์ความงาม', keywords: 'beauty tool อุปกรณ์', test: /refa|brush|comb|hair/ },
-  { label: 'แฟชั่น', keywords: 'fashion apparel clothes แฟชั่น เสื้อผ้า', test: /human made|\bfam\b|sock|t-shirt|\bcap\b|key ring|twill/ },
+  { label: 'แฟชั่น', keywords: 'fashion apparel clothes แฟชั่น', test: /human made|\bfam\b|sock|t-shirt|\btee\b|\bcap\b|key ring|twill|matin kim|girbaud|stand oil|\bemis\b|kirsh|covernat|thisisneverthat|mahagrid|\bosoi\b|\blmc\b|wallet|\bbag\b|hoodie|sweatshirt/ },
 ]
 const DEFAULT: ProductType = {
   label: 'สกินแคร์',
