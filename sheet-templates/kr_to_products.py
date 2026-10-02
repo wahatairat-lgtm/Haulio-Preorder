@@ -17,7 +17,8 @@ def main(rate):
     for r in csv.DictReader(open("kr-catalog.csv", encoding="utf-8")):
         krw = float(r["krw"])
         cost = round(krw * rate, 2)
-        price = price_ending_90(cost)
+        # ราคาที่เจ้าของกำหนดเอง (price_override) ชนะสูตร
+        price = int(r["price_override"]) if r.get("price_override") else price_ending_90(cost)
         markup = price / cost - 1
         name = " ".join(x for x in (r["brand"], r["product"], r["size"]) if x)
         out.append([r["code"], name, "kr", price, "", "", "", ", ".join(v.strip() for v in r.get("variants", "").split("|") if v.strip()), "TRUE", r["brand"]])
