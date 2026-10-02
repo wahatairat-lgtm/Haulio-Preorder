@@ -29,6 +29,7 @@ export default function CheckoutPage() {
   const [progress, setProgress] = useState('')
   const [error, setError] = useState('')
   const [copied, setCopied] = useState(false)
+  const [agreed, setAgreed] = useState(false)
   const qrPayload = useMemo(() => (bank.promptpay ? promptPayPayload(bank.promptpay, total) : null), [bank.promptpay, total])
 
   useEffect(() => {
@@ -150,6 +151,21 @@ export default function CheckoutPage() {
             </>
           )}
           <input required type="file" accept="image/*" className="sr-only" onChange={(e) => handleFile(e.target.files?.[0] ?? null)} />
+        </label>
+
+        <label className="flex items-start gap-3 text-sm leading-relaxed text-on-surface">
+          <input
+            required
+            type="checkbox"
+            checked={agreed}
+            onChange={(e) => setAgreed(e.target.checked)}
+            onInvalid={(e) => e.currentTarget.setCustomValidity('ติ๊กรับทราบก่อนยืนยันสั่งซื้อ')}
+            onInput={(e) => e.currentTarget.setCustomValidity('')}
+            className="mt-0.5 size-5 flex-none accent-primary"
+          />
+          <span>
+            รับทราบว่าร้านไม่คืนเงินทุกกรณี และตรวจสินค้า ตัวเลือก และจำนวนในตะกร้าถูกต้องแล้ว <span className="text-error">*</span>
+          </span>
         </label>
 
         {error && <p className="text-sm text-error">{error}</p>}
