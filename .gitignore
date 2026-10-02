@@ -31,3 +31,5 @@ dist-ssr
 # ข้อมูลต้นทุนจริง ไม่ขึ้น GitHub
 sheet-templates/Catelog.csv
 sheet-templates/price-report.csv
+sheet-templates/price-report-kr.csv
+sheet-templates/kr-catalog.csv

@@ -1,0 +1,76 @@
+id,name,category,price,imageUrl,description,deadline,variants,available,brand
+C01,Elixir Sunscreen,jp,1090,,,,,TRUE,Elixir
+C02,Elixir Sleeping Gel Pack,jp,890,,,,,TRUE,Elixir
+C03,Elixir Brightrening Sleeping Gel Pack,jp,1090,,,,,TRUE,Elixir
+C04,Elixir Balancing Oyasumi Mask,jp,590,,,,,TRUE,Elixir
+C05,Elixir Luminious Glow Mist,jp,590,,,,,TRUE,Elixir
+C06,Elixir Bouncing Essence Lotion Rich Moisture,jp,890,,,,,TRUE,Elixir
+C07,ARIMINO Men Freeze Keep Gel,jp,590,,,,,TRUE,Arimino
+C08,Biore UV Aqua Rich Watery Essence (SPF 50+ PA++++),jp,290,,,,,TRUE,Biore
+C09,Biore UV Aqua Rich Light Up Essence SPF50+ PA++++ 70g,jp,290,,,,,TRUE,Biore
+C10,ANESSA Perfect UV Sunscreen Skincare Milk NA,jp,890,,,,,TRUE,Anessa
+C11,Anessa Perfect UV Blush-On Powder 3g,jp,1090,,,,,TRUE,Anessa
+C12,Kose Medicated Sekkisei Brightening Essence Lotion 350mL,jp,1890,,,,,TRUE,Kose
+C13,Sekkisei Skincare UV Defense Essence Gel,jp,790,,,,,TRUE,Kose
+C18,Kose Medicated Sekkisei Brightening Cream Wash 130g,jp,790,,,,,TRUE,Kose
+C14,Transino White C Premium 270 tablets,jp,1390,,,,,TRUE,Transino
+C15,"Pair Herbal Extract Tablets, 112 tablets",jp,790,,,,,TRUE,Pair
+C16,Pair Acne Cream W 14g,jp,390,,,,,TRUE,Pair
+C17,"Yakult BL Chewable Intestinal Regulator,",jp,690,,,,,TRUE,Pair
+C19,derma laser mask,jp,290,,,,,TRUE,Derma laser
+C20,UHA Mikakdou Gummy Supplement,jp,190,,,,,TRUE,Derma laser
+E01,MiiR Commuter Cup with Straw 16oz,jp,1490,,,,,TRUE,Blue bottle
+E02,Kinto Day Off Tumblr,jp,1490,,,,,TRUE,Blue bottle
+E03,Blue Bottle Coffee Bright Blend,jp,590,,,,,TRUE,Blue bottle
+E04,Hayes Valley Espresso,jp,690,,,,,TRUE,Blue bottle
+E05,Fam Sock,jp,190,,,,,TRUE,Fam
+E06,Sam x Animal socks,jp,190,,,,,TRUE,Fam
+E07,ReFa HEART BRUSH ReFa,jp,890,,,,,TRUE,Refa
+E08,ReFa HEART COMB Aira ReFa,jp,890,,,,,TRUE,Refa
+M01,reigan no hana,jp,890,,,,,TRUE,yamecha monogatari
+M02,Sayaka-no-mukashi,jp,690,,,,,TRUE,yamecha monogatari
+F01,3-PACK POCKET T-SHIRT SET,jp,2290,,,,,TRUE,Human made
+F02,6PANEL TWILL CAP,jp,2490,,,,,TRUE,Human made
+F03,Heart Key Ring,jp,990,,,,,TRUE,Human made
+S01,Nama Chocolate [Matcha],jp,390,,,,,TRUE,Royce
+S02,Nama Chocolate [Au Lait],jp,390,,,,,TRUE,Royce
+S03,Nama Chocolate [Bitter],jp,390,,,,,TRUE,Royce
+S04,Potato Chip Chocolate [Original],jp,390,,,,,TRUE,Royce
+S05,Potato Chip Chocolate [Mild Bitter],jp,390,,,,,TRUE,Royce
+S06,Potato Chip Caramel,jp,390,,,,,TRUE,Royce
+S07,Matcha Bar Chocolate [12pcs],jp,590,https://www.royce.com/images/pc/english/product/barchocolate/maccha12_m.jpg,,,,TRUE,Royce
+M03,OKUMIDORI,jp,890,https://www.ochamura.com/Contents/ProductImages/0/60285_LL.jpg,,,,TRUE,Ochamaru - Yame
+M04,TSUYUHIKARI,jp,890,https://www.ochamura.com/Contents/ProductImages/0/60286_LL.jpg,,,,TRUE,Ochamaru - Yame
+M05,SUIHOU,jp,790,https://www.ochamura.com/Contents/ProductImages/0/60287_LL.jpg,,,,TRUE,Ochamaru - Yame
+M06,SEIMEI,jp,890,https://www.ochamura.com/Contents/ProductImages/0/60290_LL.jpg,,,,TRUE,Ochamaru - Yame
+M07,Hon Gyokuro,jp,890,https://www.ochamura.com/Contents/ProductImages/0/60292_LL.jpg,,,,TRUE,Ochamaru - Yame
+M08,SAEMIDORI,jp,890,https://www.ochamura.com/Contents/ProductImages/0/60289_LL.jpg,,,,TRUE,Ochamaru - Yame
+M09,SAEAKARI,jp,890,https://www.ochamura.com/Contents/ProductImages/0/60291_LL.jpg,,,,TRUE,Ochamaru - Yame
+M10,KIRARI,jp,790,https://www.ochamura.com/Contents/ProductImages/0/60288_LL.jpg,,,,TRUE,Ochamaru - Yame
+M11,SAMIDORI,jp,1190,https://www.ochamura.com/Contents/ProductImages/0/60293_LL.jpg,,,,TRUE,Ochamaru - Uji
+M12,Uji Matcha,jp,790,https://www.ochamura.com/Contents/ProductImages/0/60294_LL.jpg,,,,TRUE,Ochamaru - Uji
+M13,Chajyu-no-mukashi,jp,4390,,,,,TRUE,Ochamaru - Uji
+M14,Kasuga-no-mukashi,jp,2890,,,,,TRUE,Ochamaru - Uji
+M15,Kaguraden,jp,2290,,,,,TRUE,Ochamaru - Uji
+M16,Seiun,jp,1490,,,,,TRUE,Ochamaru - Uji
+M17,Tennouzan,jp,1090,,,,,TRUE,Ochamaru - Uji
+M18,Senjin-no-mukashi,jp,990,,,,,TRUE,Ochamaru - Uji
+M19,Sikibu-no-mukashi,jp,790,,,,,TRUE,Ochamaru - Uji
+M20,Ogurayama,jp,690,,,,,TRUE,Ochamaru - Uji
+M21,Yomo-no-kaori,jp,490,,,,,TRUE,Ochamaru - Uji
+M22,Samidori,jp,390,,,,,TRUE,Ochamaru - Uji
+M23,Matsukaze,jp,390,,,,,TRUE,Ochamaru - Uji
+K01,Beauty of Joseon Relief Sun: Rice + Probiotics SPF50+ PA++++ 50ml,kr,490,,,,,TRUE,Beauty of Joseon
+K02,Round Lab Birch Juice Moisturizing Sunscreen SPF50+ PA++++ 50ml,kr,690,,,,,TRUE,Round Lab
+K03,COSRX Advanced Snail 96 Mucin Power Essence 100ml,kr,590,,,,,TRUE,COSRX
+K04,Torriden DIVE-IN Low Molecular Hyaluronic Acid Serum,kr,790,,,,,TRUE,Torriden
+K05,Anua Heartleaf 77% Soothing Toner 250ml,kr,590,,,,,TRUE,Anua
+K06,Mediheal N.M.F Aquaring Ampoule Mask (10 sheets),kr,590,,,,,TRUE,Mediheal
+K07,Romand Juicy Lasting Tint,kr,290,,,,,TRUE,Romand
+K08,d'Alba White Truffle First Spray Serum 100ml,kr,990,,,,,TRUE,d'Alba
+K09,Bringgreen Teatree Pore Nose Pack (10 strips),kr,290,,,,,TRUE,Bringgreen
+K10,A'PIEU Madecassoside Cream 50ml,kr,390,,,,,TRUE,A'PIEU
+K11,Goodal Green Tangerine Vita C Dark Spot Serum 30ml,kr,890,,,,,TRUE,Goodal
+K12,TIRTIR Mask Fit Red Cushion Foundation,kr,790,,,,,TRUE,TIRTIR
+K13,CLIO Kill Cover Founwear Cushion,kr,890,,,,,TRUE,CLIO
+K14,Leaders Mediu Amino Pore Tight Mask (10 sheets),kr,690,,,,,TRUE,Leaders
