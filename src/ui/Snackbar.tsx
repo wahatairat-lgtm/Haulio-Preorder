@@ -19,7 +19,7 @@ export default function Snackbar({
   }, [message, onClose])
 
   return (
-    <div role="status" className="fixed inset-x-4 bottom-24 z-50 mx-auto flex max-w-112 items-center gap-2 rounded-sm bg-on-surface py-1 pl-4 pr-2 text-sm text-surface shadow-e3">
+    <div role="status" className="fixed inset-x-4 bottom-28 z-50 mx-auto flex max-w-112 items-center gap-2 rounded-sm bg-on-surface py-1 pl-4 pr-2 text-sm text-surface shadow-e3">
       <span className="flex-1 py-3">{message}</span>
       {actionLabel && (
         <Button variant="text" className="h-10 px-3 text-inverse-primary!" onClick={onAction}>

@@ -13,13 +13,15 @@ export default function WindowLabel({ country, openRange, shipDate }: { country:
   const status = win ? roundStatus(win) : null
 
   return (
-    <section className="relative border border-outline-variant bg-surface-container-lowest" aria-label={`รอบพรีออเดอร์${country}`}>
+    <section className="relative -rotate-[0.6deg] rounded-lg border border-outline-variant bg-surface-container-lowest shadow-e2" aria-label={`รอบพรีออเดอร์${country}`}>
+      <span className="absolute -top-2.5 left-6 h-5 w-14 -rotate-3 rounded-sm bg-secondary-container/90" aria-hidden="true" />
+      <span className="absolute -top-2.5 right-6 h-5 w-14 rotate-3 rounded-sm bg-secondary-container/90" aria-hidden="true" />
       <div className="flex items-start justify-between gap-3 px-4 pt-3">
         <p className="text-xs font-medium text-on-surface-variant">รอบพรีออเดอร์ · {country}</p>
         {status && (
           <span
             className={cx(
-              '-rotate-3 border-2 px-2 py-0.5 text-xs font-bold leading-tight',
+              '-rotate-3 rounded-md border-2 px-2 py-0.5 text-xs font-bold leading-tight',
               status.state === 'closed' ? 'border-outline text-outline' : 'border-primary text-primary',
             )}
           >

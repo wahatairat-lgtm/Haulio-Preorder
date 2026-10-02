@@ -58,7 +58,7 @@ export default function LandingPage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-outline-variant bg-surface/90 px-4 backdrop-blur">
+      <header className="sticky top-0 z-20 flex h-16 items-center justify-between bg-tertiary-container px-4">
         <img src={logo} alt="Haulio Pre-order" className="logo-ink h-8 w-auto" />
         <Link to="/">
           <Button className="h-10 px-4">เข้าร้าน</Button>

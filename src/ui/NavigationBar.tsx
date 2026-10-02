@@ -12,23 +12,35 @@ export interface NavItem {
 }
 
 /** Navigation bar (M3) — active indicator เป็นแคปซูลสี secondary-container */
+/** เมนูล่างแบบแคปซูลลอย */
 export default function NavigationBar({ items }: { items: NavItem[] }) {
   return (
-    <nav className="sticky bottom-0 z-20 flex h-[68px] border-t border-outline-variant bg-surface">
-      {items.map((item) => (
-        <NavLink key={item.to} to={item.to} end={item.end} className="relative flex flex-1 flex-col items-center justify-center gap-0.5">
-          {({ isActive }) => (
-            <>
-              {isActive && <span className="absolute inset-x-6 -top-px h-0.5 bg-primary" />}
-              <span className={cx('relative', isActive ? 'text-primary' : 'text-on-surface-variant')}>
-                <Icon name={item.icon} size={24} weight={isActive ? 'fill' : 'regular'} />
-                {item.badge ? <Badge count={item.badge} className="absolute -right-3 -top-1.5" /> : null}
-              </span>
-              <span className={cx('text-[11px]', isActive ? 'font-semibold text-on-surface' : 'font-medium text-on-surface-variant')}>{item.label}</span>
-            </>
-          )}
-        </NavLink>
-      ))}
+    <nav className="pointer-events-none sticky bottom-0 z-20 bg-linear-to-t from-surface via-surface/85 to-transparent px-4 pb-3 pt-8">
+      <div className="pointer-events-auto flex h-16 items-center gap-1 rounded-full border border-outline-variant bg-surface-container-lowest p-1.5 shadow-e2">
+        {items.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.end}
+            className={({ isActive }) =>
+              cx(
+                'relative flex h-full flex-1 flex-col items-center justify-center gap-0.5 rounded-full transition-colors',
+                isActive ? 'bg-primary text-on-primary' : 'text-on-surface-variant',
+              )
+            }
+          >
+            {({ isActive }) => (
+              <>
+                <span className="relative">
+                  <Icon name={item.icon} size={22} weight={isActive ? 'fill' : 'regular'} />
+                  {item.badge ? <Badge count={item.badge} className="absolute -right-3 -top-1.5" /> : null}
+                </span>
+                <span className="text-[11px] font-medium leading-none">{item.label}</span>
+              </>
+            )}
+          </NavLink>
+        ))}
+      </div>
     </nav>
   )
 }

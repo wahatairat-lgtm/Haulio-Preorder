@@ -9,7 +9,7 @@ import { cachedProducts, cachedSettings, fetchProducts, fetchSettings } from '..
 import { productType, typesIn } from '../lib/categorize'
 import { searchProducts } from '../lib/search'
 import type { Category, Product, Schedule } from '../types'
-import { Button, Chip, SearchBar, Snackbar, Tabs } from '../ui'
+import { Button, Chip, SearchBar, Snackbar, StampTabs } from '../ui'
 
 
 export default function CatalogPage() {
@@ -65,19 +65,21 @@ export default function CatalogPage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <header className="flex flex-col gap-3 px-4 pb-3 pt-4">
-        <img src={logo} alt="Haulio Pre-order" className="logo-ink h-9 w-auto self-start" />
-        <SearchBar value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ค้นหา เช่น กันแดด, matcha, Elixir" aria-label="ค้นหาสินค้า" />
+      <header className="rounded-b-[28px] bg-tertiary-container px-4 pb-14 pt-5">
+        <img src={logo} alt="Haulio Pre-order" className="logo-ink h-9 w-auto" />
+        <div className="mt-4">
+          <SearchBar value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ค้นหา เช่น กันแดด, matcha, Elixir" aria-label="ค้นหาสินค้า" />
+        </div>
       </header>
 
       {range && (
-        <div className="px-4 pb-4">
+        <div className="relative z-10 -mt-10 px-4">
           <WindowLabel country={tab === 'kr' ? 'เกาหลี' : 'ญี่ปุ่น'} openRange={range.openRange} shipDate={range.shipDate} />
         </div>
       )}
 
-      <div className="px-4">
-        <Tabs
+      <div className="px-4 pt-5">
+        <StampTabs
           options={[
             { value: 'kr' as const, label: 'เกาหลี', count: counts.kr },
             { value: 'jp' as const, label: 'ญี่ปุ่น', count: counts.jp },
@@ -88,7 +90,7 @@ export default function CatalogPage() {
       </div>
 
       {types.length > 1 && !query.trim() && (
-        <div className="no-scrollbar flex gap-2 overflow-x-auto px-4 pt-3">
+        <div className="no-scrollbar flex gap-2 overflow-x-auto px-4 pt-4">
           <Chip selected={!type} onClick={() => setType('')}>
             ทั้งหมด
           </Chip>
@@ -110,7 +112,7 @@ export default function CatalogPage() {
           <div className="grid grid-cols-2 gap-x-3 gap-y-6">
             {Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="space-y-2">
-                <div className="aspect-4/5 animate-pulse rounded-md bg-surface-container-high" />
+                <div className="aspect-4/5 animate-pulse rounded-xl bg-surface-container-high" />
                 <div className="h-3 w-3/4 animate-pulse rounded-full bg-surface-container-high" />
                 <div className="h-4 w-1/3 animate-pulse rounded-full bg-surface-container-high" />
               </div>

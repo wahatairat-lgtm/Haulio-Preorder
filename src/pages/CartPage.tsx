@@ -66,7 +66,7 @@ export default function CartPage() {
         </Card>
       </main>
 
-      <footer className="sticky bottom-[68px] z-10 bg-surface px-4 pb-3 pt-2">
+      <footer className="sticky bottom-[88px] z-10 bg-surface px-4 pb-3 pt-2">
         <Button full onClick={() => navigate('/checkout')}>
           ไปชำระเงิน
         </Button>
