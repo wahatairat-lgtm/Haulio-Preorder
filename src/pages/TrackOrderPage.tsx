@@ -8,9 +8,9 @@ import { Button, Card, cx, ProductImage, SearchBar, TopAppBar } from '../ui'
 
 const STEPS: { status: OrderStatus; label: string }[] = [
   { status: 'pending', label: 'รับออเดอร์' },
-  { status: 'paid', label: 'ยืนยันชำระเงิน' },
-  { status: 'shipped', label: 'จัดส่ง' },
-  { status: 'done', label: 'สำเร็จ' },
+  { status: 'paid', label: 'ชำระเงินแล้ว' },
+  { status: 'shipped', label: 'จัดส่งแล้ว' },
+  { status: 'done', label: 'เสร็จสิ้น' },
 ]
 
 export default function TrackOrderPage() {
@@ -41,14 +41,14 @@ export default function TrackOrderPage() {
       <div className="flex flex-1 flex-col gap-4 px-4 pb-6 pt-2">
         <form onSubmit={handleSubmit} className="flex gap-2">
           <div className="min-w-0 flex-1">
-            <SearchBar value={orderId} onChange={(e) => setOrderId(e.target.value)} placeholder="วางรหัสออเดอร์" aria-label="รหัสออเดอร์" />
+            <SearchBar value={orderId} onChange={(e) => setOrderId(e.target.value)} placeholder="เช่น HL1A2B3C4D" aria-label="รหัสออเดอร์" />
           </div>
           <Button type="submit" className="px-5">
-            ค้นหา
+            ตรวจสอบ
           </Button>
         </form>
 
-        {order === null && <p className="text-sm text-on-surface-variant">ไม่พบออเดอร์นี้</p>}
+        {order === null && <p className="text-sm text-on-surface-variant">ไม่พบออเดอร์นี้ ลองตรวจรหัสอีกครั้ง (รหัสขึ้นต้นด้วย HL)</p>}
 
         {order && (
           <>
@@ -57,6 +57,9 @@ export default function TrackOrderPage() {
                 <span className="font-mono text-sm font-semibold tracking-wider text-on-surface">{order.id}</span>
                 <StatusBadge status={order.status} />
               </div>
+              {order.status === 'rejected' && (
+                <p className="text-sm text-on-surface-variant">สลิปที่ส่งมาตรวจสอบไม่ได้ ร้านจะติดต่อทาง LINE ที่ให้ไว้ตอนสั่งซื้อ</p>
+              )}
               {order.status !== 'rejected' && stepIndex >= 0 && (
                 <ol className="flex items-start pt-1">
                   {STEPS.map((s, i) => (

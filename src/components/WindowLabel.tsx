@@ -31,13 +31,18 @@ export default function WindowLabel({ country, openRange, shipDate }: { country:
       {win && status ? (
         <div className="px-4 pb-3 pt-1">
           <p className="text-[28px] font-semibold leading-tight text-on-surface">
-            {status.state === 'open' && (
-              <>
-                เหลืออีก <span className="num">{status.daysLeft}</span> วัน
-              </>
-            )}
-            {status.state === 'upcoming' && <>เปิดรับ {formatDay(win.start)}</>}
-            {status.state === 'closed' && <>จบรอบแล้ว</>}
+            {status.state === 'open' &&
+              (status.daysLeft === 0 ? (
+                <>ปิดรับวันนี้</>
+              ) : status.daysLeft === 1 ? (
+                <>ปิดรับพรุ่งนี้</>
+              ) : (
+                <>
+                  ปิดรับในอีก <span className="num">{status.daysLeft}</span> วัน
+                </>
+              ))}
+            {status.state === 'upcoming' && <>เปิดรับวันที่ {formatDay(win.start)}</>}
+            {status.state === 'closed' && <>ปิดรับแล้ว รอรอบถัดไป</>}
           </p>
 
           <div className="num mt-3 flex items-center gap-2 text-xs text-on-surface-variant">
@@ -49,7 +54,7 @@ export default function WindowLabel({ country, openRange, shipDate }: { country:
                 style={{ left: `${status.progress * 100}%` }}
               />
             </div>
-            <span className="font-semibold text-on-surface">ปิด {formatDay(win.end)}</span>
+            <span className="font-semibold text-on-surface">ปิดรับ {formatDay(win.end)}</span>
           </div>
         </div>
       ) : (

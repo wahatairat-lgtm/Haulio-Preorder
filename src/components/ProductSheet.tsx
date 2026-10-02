@@ -55,7 +55,7 @@ function SheetBody({
       {product.variants && product.variants.length > 0 && (
         <div className="mt-4">
           <p className="mb-2 text-sm font-medium text-on-surface">
-            เลือกรสชาติ / ตัวเลือก <span className="text-error">*</span>
+            ตัวเลือก <span className="text-error">*</span>
           </p>
           <div className="flex flex-wrap gap-2">
             {product.variants.map((v) => (
@@ -70,7 +70,7 @@ function SheetBody({
       <div className="mt-6 flex items-center gap-4">
         <QuantityStepper value={qty} onChange={(n) => setQty(Math.max(1, n))} />
         <Button full icon="bag" disabled={!product.available || needsChoice} onClick={() => onAdd(product, variant, qty)}>
-          {!product.available ? 'สินค้าหมด' : needsChoice ? 'เลือกรสชาติก่อน' : `เพิ่มลงตะกร้า ${baht(product.price * qty)}`}
+          {!product.available ? 'สินค้าหมด' : needsChoice ? 'เลือกตัวเลือกก่อน' : `เพิ่มลงตะกร้า ${baht(product.price * qty)}`}
         </Button>
       </div>
     </div>

@@ -10,8 +10,8 @@ export default function OrderSuccessPage() {
         Order received
       </div>
       <div>
-        <h1 className="text-xl font-semibold text-on-surface">ส่งคำสั่งซื้อสำเร็จ</h1>
-        <p className="mt-1 text-sm text-on-surface-variant">เก็บรหัสนี้ไว้เช็คสถานะการตรวจสลิป</p>
+        <h1 className="text-xl font-semibold text-on-surface">ได้รับออเดอร์แล้ว</h1>
+        <p className="mt-1 text-sm text-on-surface-variant">ร้านจะตรวจสลิปและอัปเดตสถานะให้ เก็บรหัสนี้ไว้เช็คได้ที่หน้า “เช็คสถานะ”</p>
       </div>
       <div className="w-full max-w-xs border border-dashed border-outline px-4 py-3">
         <p className="text-xs font-medium text-on-surface-variant">รหัสออเดอร์</p>

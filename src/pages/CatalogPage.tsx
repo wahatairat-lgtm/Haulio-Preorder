@@ -16,7 +16,7 @@ export default function CatalogPage() {
   const [products, setProducts] = useState<Product[]>(() => cachedProducts() ?? [])
   const [loading, setLoading] = useState(() => !cachedProducts())
   const [failed, setFailed] = useState(false)
-  const [tab, setTab] = useState<Category>('jp')
+  const [tab, setTab] = useState<Category>('kr')
   const [type, setType] = useState('')
   const [query, setQuery] = useState('')
   const [schedule, setSchedule] = useState<Schedule | null>(() => cachedSettings()?.schedule ?? null)
@@ -56,7 +56,7 @@ export default function CatalogPage() {
   function add(product: Product, variant: string | undefined, qty: number) {
     for (let i = 0; i < qty; i++) addItem(product, variant)
     setSelected(null)
-    setToast(`เพิ่ม ${product.name} ลงตะกร้าแล้ว`)
+    setToast(`ใส่ตะกร้าแล้ว: ${product.name}`)
   }
 
   const range = schedule?.[tab]
@@ -116,10 +116,17 @@ export default function CatalogPage() {
             ))}
           </div>
         )}
-        {failed && <p className="pt-8 text-center text-sm text-error">โหลดสินค้าไม่สำเร็จ ลองรีเฟรชหน้าอีกครั้ง</p>}
+        {failed && (
+          <div className="flex flex-col items-center gap-3 pt-8 text-center text-sm">
+            <p className="text-error">โหลดสินค้าไม่สำเร็จ อินเทอร์เน็ตอาจสะดุด</p>
+            <Button variant="outlined" className="h-10" onClick={() => window.location.reload()}>
+              ลองอีกครั้ง
+            </Button>
+          </div>
+        )}
         {!loading && !failed && visible.length === 0 && (
           <div className="flex flex-col items-center gap-3 pt-8 text-center text-sm text-on-surface-variant">
-            <p>{inTab.length === 0 ? 'ยังไม่มีสินค้าในหมวดนี้' : 'ไม่พบสินค้าที่ค้นหา'}</p>
+            <p>{inTab.length === 0 ? 'ยังไม่มีสินค้าในแท็บนี้' : `ไม่พบ “${query.trim()}” ลองคำอื่น เช่น ชื่อแบรนด์หรือประเภทสินค้า`}</p>
             {otherHits > 0 && (
               <Button variant="outlined" className="h-10" onClick={() => changeTab(otherTab)}>
                 พบ {otherHits} รายการในแท็บ{otherTab === 'kr' ? 'เกาหลี' : 'ญี่ปุ่น'}

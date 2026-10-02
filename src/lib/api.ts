@@ -4,7 +4,7 @@ const API_URL = import.meta.env.VITE_SHEET_API_URL as string | undefined
 
 function requireApiUrl(): string {
   if (!API_URL) {
-    throw new Error('ยังไม่ได้ตั้งค่า VITE_SHEET_API_URL ดู README สำหรับขั้นตอนตั้งค่า')
+    throw new Error('ยังเชื่อมต่อร้านไม่ได้ ลองรีเฟรชหน้าอีกครั้ง')
   }
   return API_URL
 }
@@ -67,7 +67,7 @@ export async function fetchSettings(): Promise<Settings> {
 
 export async function fetchOrder(orderId: string): Promise<Order | null> {
   const res = await fetch(`${requireApiUrl()}?type=order&id=${encodeURIComponent(orderId)}`)
-  if (!res.ok) throw new Error('ค้นหาออเดอร์ไม่สำเร็จ')
+  if (!res.ok) throw new Error('ตรวจสอบออเดอร์ไม่สำเร็จ ลองอีกครั้ง')
   const data = await res.json()
   return data.order ?? null
 }
@@ -90,7 +90,7 @@ export async function submitOrder(payload: NewOrderPayload): Promise<string> {
     headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify({ action: 'createOrder', ...payload }),
   })
-  if (!res.ok) throw new Error('ส่งคำสั่งซื้อไม่สำเร็จ')
+  if (!res.ok) throw new Error('ส่งออเดอร์ไม่สำเร็จ')
   const data = await res.json()
   return data.orderId as string
 }
@@ -119,7 +119,7 @@ export function fileToBase64(file: File): Promise<string> {
       const result = reader.result as string
       resolve(result.split(',')[1] ?? '')
     }
-    reader.onerror = () => reject(new Error('อ่านไฟล์ไม่สำเร็จ'))
+    reader.onerror = () => reject(new Error('อ่านรูปสลิปไม่ได้ ลองเลือกรูปใหม่'))
     reader.readAsDataURL(file)
   })
 }

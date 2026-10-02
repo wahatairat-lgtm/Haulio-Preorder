@@ -9,7 +9,7 @@ import PromptPayQr from '../components/PromptPayQr'
 import { Button, Card, Icon, TextArea, TextField, TopAppBar } from '../ui'
 
 const DEFAULT_BANK: BankInfo = {
-  bankName: 'ยังไม่ได้ตั้งค่าบัญชีธนาคาร',
+  bankName: 'กำลังโหลดข้อมูลบัญชี...',
   accountName: '-',
   accountNumber: '-',
 }
@@ -56,22 +56,22 @@ export default function CheckoutPage() {
     e.preventDefault()
     setError('')
     if (![name, phone, lineId, address].every((v) => v.trim())) {
-      setError('กรุณากรอกข้อมูลให้ครบทุกช่อง')
+      setError('กรอกข้อมูลช่องที่มี * ให้ครบก่อนยืนยัน')
       return
     }
     if (phone.replace(/\D/g, '').length < 9) {
-      setError('เบอร์โทรศัพท์ไม่ถูกต้อง')
+      setError('เบอร์โทรศัพท์ต้องมีอย่างน้อย 9 หลัก')
       return
     }
     if (!slip) {
-      setError('กรุณาแนบรูปสลิปโอนเงิน')
+      setError('แนบรูปสลิปโอนเงินก่อนยืนยัน')
       return
     }
     setSubmitting(true)
     try {
       setProgress('กำลังเตรียมรูปสลิป...')
       const slipBase64 = await fileToBase64(await compressImage(slip))
-      setProgress('กำลังส่งคำสั่งซื้อ...')
+      setProgress('กำลังส่งออเดอร์...')
 
       const orderId = await submitOrder({
         items,
@@ -88,7 +88,7 @@ export default function CheckoutPage() {
       clear()
       navigate(`/order/${orderId}`, { replace: true })
     } catch {
-      setError('ส่งคำสั่งซื้อไม่สำเร็จ ลองใหม่อีกครั้ง')
+      setError('ส่งออเดอร์ไม่สำเร็จ ข้อมูลที่กรอกยังอยู่ ลองกดยืนยันอีกครั้ง')
     } finally {
       setSubmitting(false)
       setProgress('')
@@ -99,7 +99,12 @@ export default function CheckoutPage() {
     return (
       <div className="flex flex-1 flex-col">
         <TopAppBar title="ชำระเงิน" onBack={() => navigate('/cart')} />
-        <p className="pt-10 text-center text-sm text-on-surface-variant">ไม่มีสินค้าในตะกร้า</p>
+        <div className="flex flex-col items-center gap-3 pt-12 text-center text-sm text-on-surface-variant">
+          <p>ตะกร้ายังว่างอยู่</p>
+          <Button variant="outlined" className="h-10" onClick={() => navigate('/')}>
+            ไปเลือกสินค้า
+          </Button>
+        </div>
       </div>
     )
   }
@@ -150,7 +155,7 @@ export default function CheckoutPage() {
         {error && <p className="text-sm text-error">{error}</p>}
 
         <Button type="submit" full disabled={submitting} className="mt-auto">
-          {submitting ? progress || 'กำลังส่งคำสั่งซื้อ...' : 'ยืนยันการสั่งซื้อ'}
+          {submitting ? progress || 'กำลังส่งออเดอร์...' : `ยืนยันสั่งซื้อ ${baht(total)}`}
         </Button>
       </form>
     </div>

@@ -11,11 +11,11 @@ const LABEL =
 type Common = { label: string; supporting?: string }
 
 /** ข้อความเตือนช่องที่ยังไม่กรอกเป็นภาษาไทย (เบราว์เซอร์ใช้ภาษาเครื่อง) */
-const requiredMessage = {
+const requiredMessage = (label: string) => ({
   onInvalid: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    e.currentTarget.setCustomValidity(e.currentTarget.validity.valueMissing ? 'กรุณากรอกช่องนี้' : 'รูปแบบไม่ถูกต้อง'),
+    e.currentTarget.setCustomValidity(e.currentTarget.validity.valueMissing ? `กรอก${label}` : `${label}ไม่ถูกต้อง`),
   onInput: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => e.currentTarget.setCustomValidity(''),
-}
+})
 
 /** Outlined text field (M3) พร้อม floating label */
 export function TextField({ label, supporting, className, ...rest }: Common & InputHTMLAttributes<HTMLInputElement>) {
@@ -23,7 +23,7 @@ export function TextField({ label, supporting, className, ...rest }: Common & In
   return (
     <div className={className}>
       <div className="relative flex items-center pt-2">
-        <input id={id} placeholder=" " className={cx(BASE, 'h-14 py-0')} {...requiredMessage} {...rest} />
+        <input id={id} placeholder=" " className={cx(BASE, 'h-14 py-0')} {...requiredMessage(label)} {...rest} />
         <label htmlFor={id} className={cx(LABEL, 'top-[1.65rem] text-base')}>
           {label}
           {rest.required && <span className="text-error"> *</span>}
@@ -39,7 +39,7 @@ export function TextArea({ label, supporting, className, ...rest }: Common & Tex
   return (
     <div className={className}>
       <div className="relative flex items-start pt-2">
-        <textarea id={id} placeholder=" " rows={3} className={cx(BASE, 'resize-none py-4')} {...requiredMessage} {...rest} />
+        <textarea id={id} placeholder=" " rows={3} className={cx(BASE, 'resize-none py-4')} {...requiredMessage(label)} {...rest} />
         <label htmlFor={id} className={cx(LABEL, 'top-[1.65rem] text-base')}>
           {label}
           {rest.required && <span className="text-error"> *</span>}

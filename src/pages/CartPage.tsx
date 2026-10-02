@@ -15,7 +15,7 @@ export default function CartPage() {
           <span className="flex size-16 items-center justify-center border border-dashed border-outline text-on-surface-variant">
             <Icon name="bag" size={30} />
           </span>
-          <p className="text-sm text-on-surface-variant">ตะกร้ายังว่างอยู่</p>
+          <p className="text-sm text-on-surface-variant">ตะกร้ายังว่างอยู่<br />เลือกสินค้าที่ชอบ แล้วกลับมาชำระเงินที่นี่</p>
           <Link to="/">
             <Button>ไปเลือกสินค้า</Button>
           </Link>
