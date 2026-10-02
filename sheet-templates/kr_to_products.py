@@ -21,7 +21,7 @@ def main(rate):
         price = int(r["price_override"]) if r.get("price_override") else price_ending_90(cost)
         markup = price / cost - 1
         name = " ".join(x for x in (r["brand"], r["product"], r["size"]) if x)
-        out.append([r["code"], name, "kr", price, "", "", "", ", ".join(v.strip() for v in r.get("variants", "").split("|") if v.strip()), "TRUE", r["brand"]])
+        out.append([r["code"], name, "kr", price, r.get("description", ""), "", ", ".join(v.strip() for v in r.get("variants", "").split("|") if v.strip()), "TRUE", r["brand"]])
         report.append([r["code"], name, int(krw), cost, price, f"{markup:.1%}", "OK" if markup <= MAX_MARKUP + 1e-9 else "OVER"])
 
     w = csv.writer(open("Products.kr.csv", "w", newline="", encoding="utf-8"))
