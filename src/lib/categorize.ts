@@ -9,7 +9,8 @@ export interface ProductType {
 
 // เรียงตามลำดับความสำคัญของการจับคู่ (อันบนชนะ) — สินค้าที่ไม่เข้าเลยถือเป็น "สกินแคร์"
 const RULES: ProductType[] = [
-  { label: 'กันแดด', keywords: 'sunscreen sun uv spf กันแดด', test: /sunscreen|\buv\b|spf/ },
+  { label: 'กันแดด', keywords: 'sunscreen sun uv spf กันแดด', test: /sunscreen|\bsun\b|\buv\b|spf/ },
+  { label: 'เมคอัพ', keywords: 'makeup cosmetic เมคอัพ เครื่องสำอาง', test: /tint|cushion|foundation|lip(stick|\b)/ },
   { label: 'อาหารเสริม', keywords: 'supplement vitamin วิตามิน อาหารเสริม', test: /tablet|supplement|yakult|gummy|vitamin/ },
   { label: 'ขนม', keywords: 'snack sweet chocolate dessert ขนม ช็อกโกแลต ของหวาน', test: /chocolate|royce|shiroi|koibito|potato chip|caramel|cookie|snack/ },
   { label: 'ชา & มัทฉะ', keywords: 'tea matcha green ชา มัทฉะ ชาเขียว', test: /matcha|gyokuro|ocha|yamecha|ippodo|\btea\b/ },
