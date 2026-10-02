@@ -65,7 +65,7 @@ export default function CatalogPage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <header className="rounded-b-[28px] bg-tertiary-container px-4 pb-14 pt-5">
+      <header className="rounded-b-[28px] bg-primary-container px-4 pb-14 pt-5">
         <img src={logo} alt="Haulio Pre-order" className="logo-ink h-9 w-auto" />
         <div className="mt-4">
           <SearchBar value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ค้นหา เช่น กันแดด, matcha, Elixir" aria-label="ค้นหาสินค้า" />
